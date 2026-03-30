@@ -1,11 +1,20 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { NAV_LINKS } from "@/lib/constants";
 import { SiteletMark, SiteletLogo } from "@/components/logo";
 
 export function Footer() {
   return (
     <footer className="bg-foreground text-background">
-      <div className="mx-auto max-w-[1200px] px-6 py-14 md:py-16">
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className="mx-auto max-w-[1200px] px-6 py-14 md:py-16"
+      >
         {/* Top row: logo left, contact right */}
         <div className="flex flex-col items-center gap-8 md:flex-row md:items-start md:justify-between">
           <div className="flex flex-col items-center gap-3 md:items-start">
@@ -60,18 +69,18 @@ export function Footer() {
             </Link>
           </nav>
 
-          <p className="text-xs text-background/30">
+          <p className="text-xs text-background/50">
             &copy; {new Date().getFullYear()} Sitelet
           </p>
         </div>
 
         {/* Legal info */}
-        <div className="mt-8 flex flex-col items-center gap-1 text-center text-[11px] leading-relaxed text-background/25 md:items-start md:text-left">
+        <div className="mt-8 flex flex-col items-center gap-1 text-center text-[11px] leading-relaxed text-background/45 md:items-start md:text-left">
           <p>Adam Zrek · Enskild firma · Org.nr 060101-8393</p>
           <p>Godkänd för F-skatt · Momsreg.nr SE060101839301</p>
           <p>Västra Torggatan 7 D, 372 30 Ronneby</p>
         </div>
-      </div>
+      </motion.div>
     </footer>
   );
 }

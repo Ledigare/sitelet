@@ -69,7 +69,21 @@ function WordReveal({ words, className }: { words: string[]; className?: string 
 export function Hero() {
   return (
     <section className="relative flex min-h-svh flex-col items-center justify-center px-6 pt-24 pb-12 overflow-hidden">
-      <div className="relative mx-auto flex w-full max-w-[1200px] flex-1 flex-col items-center justify-center text-center">
+      {/* Dot pattern background with radial fade */}
+      <div
+        aria-hidden="true"
+        className="dot-grid dot-grid-mask pointer-events-none absolute inset-0 z-0"
+      />
+
+      {/* Subtle animated glow */}
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-1/3 z-0 h-[500px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-foreground/[0.03] blur-[100px]"
+        animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.8, 0.5] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      <div className="relative z-10 mx-auto flex w-full max-w-[1200px] flex-1 flex-col items-center justify-center text-center">
         {/* Headline with word-by-word reveal */}
         <motion.h1
           variants={containerVariants}
@@ -103,14 +117,14 @@ export function Hero() {
         >
           <a
             href="#kontakt"
-            className="inline-flex items-center gap-2 rounded-lg bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground transition-all duration-200 hover:opacity-90 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            className="inline-flex items-center gap-2 rounded-lg bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground transition-all duration-200 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             Få din gratis webbanalys
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </a>
           <a
             href="#projekt"
-            className="inline-flex items-center gap-2 rounded-lg border border-border px-8 py-4 text-sm font-medium text-foreground transition-colors duration-200 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            className="inline-flex items-center gap-2 rounded-lg border border-border px-8 py-4 text-sm font-medium text-foreground transition-all duration-200 hover:bg-secondary active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             Se våra projekt
             <ArrowDown className="h-4 w-4" aria-hidden="true" />
@@ -124,7 +138,7 @@ export function Hero() {
         custom={0.9}
         initial="hidden"
         animate="visible"
-        className="mx-auto w-full max-w-[1200px] border-t border-border pt-6"
+        className="relative z-10 mx-auto w-full max-w-[1200px] border-t border-border pt-6"
       >
         <div className="grid grid-cols-3 text-center">
           {STATS.map((stat, i) => (

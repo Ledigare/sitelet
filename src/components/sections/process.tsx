@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { PROCESS_STEPS } from "@/lib/constants";
 
 const containerVariants = {
@@ -31,8 +32,8 @@ export function Process() {
       <div className="mx-auto max-w-[1200px]">
         {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
         >
@@ -90,6 +91,23 @@ export function Process() {
               )}
             </motion.div>
           ))}
+        </motion.div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+          className="mt-14"
+        >
+          <a
+            href="#kontakt"
+            className="inline-flex items-center gap-2 text-sm font-medium text-foreground underline-offset-4 hover:underline rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          >
+            Redo att börja? Hör av dig
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </a>
         </motion.div>
       </div>
     </section>

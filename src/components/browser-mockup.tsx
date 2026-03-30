@@ -3,11 +3,13 @@ import Image from "next/image";
 interface BrowserMockupProps {
   url: string;
   screenshot: string;
+  screenshotMobile?: string;
+  screenshotTablet?: string;
   alt: string;
   priority?: boolean;
 }
 
-export function BrowserMockup({ url, screenshot, alt, priority }: BrowserMockupProps) {
+export function BrowserMockup({ url, screenshot, screenshotMobile, screenshotTablet, alt, priority }: BrowserMockupProps) {
   return (
     <div className="overflow-hidden rounded-xl border border-border bg-background shadow-sm transition-shadow duration-300 hover:shadow-md">
       {/* Browser chrome */}
@@ -32,16 +34,24 @@ export function BrowserMockup({ url, screenshot, alt, priority }: BrowserMockupP
           <span className="truncate text-xs text-muted-foreground">{url}</span>
         </div>
       </div>
-      {/* Screenshot — natural aspect ratio, no cropping */}
-      <Image
-        src={screenshot}
-        alt={alt}
-        width={1440}
-        height={900}
-        unoptimized
-        className="block w-full h-auto"
-        priority={priority}
-      />
+      {/* Screenshot — responsive with art direction */}
+      <picture>
+        {screenshotMobile && (
+          <source media="(max-width: 639px)" srcSet={screenshotMobile} type="image/webp" />
+        )}
+        {screenshotTablet && (
+          <source media="(max-width: 1023px)" srcSet={screenshotTablet} type="image/webp" />
+        )}
+        <Image
+          src={screenshot}
+          alt={alt}
+          width={1440}
+          height={900}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 800px"
+          className="block w-full h-auto"
+          priority={priority}
+        />
+      </picture>
     </div>
   );
 }

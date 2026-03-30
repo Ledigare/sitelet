@@ -31,6 +31,7 @@ export function Contact() {
           contact: data.get("contact"),
           message: data.get("message"),
           website: data.get("website") || "",
+          url_confirm: data.get("url_confirm") || "",
         }),
       });
 
@@ -112,13 +113,18 @@ export function Contact() {
 
           {/* Right — form */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, scale: 0.96 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
           >
             {status === "success" ? (
-              <div className="flex h-full min-h-[400px] flex-col items-center justify-center rounded-2xl bg-background p-12">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                className="flex h-full min-h-[400px] flex-col items-center justify-center rounded-2xl bg-background p-12"
+              >
                 <div className="flex h-14 w-14 items-center justify-center rounded-full bg-foreground">
                   <Check className="h-6 w-6 text-background" strokeWidth={2} />
                 </div>
@@ -128,7 +134,7 @@ export function Contact() {
                 <p className="mt-2 text-muted-foreground">
                   Vi hör av oss inom kort.
                 </p>
-              </div>
+              </motion.div>
             ) : (
               <form
                 onSubmit={handleSubmit}
@@ -197,6 +203,16 @@ export function Contact() {
                   />
                 </div>
 
+                {/* Honeypot — hidden from real users, bots fill it */}
+                <input
+                  type="text"
+                  name="url_confirm"
+                  autoComplete="off"
+                  tabIndex={-1}
+                  aria-hidden="true"
+                  className="absolute left-[-9999px] h-0 w-0 overflow-hidden opacity-0"
+                />
+
                 <p className="mt-3 text-center text-xs text-muted-foreground">
                   Genom att skicka godkänner du vår{" "}
                   <Link
@@ -211,16 +227,26 @@ export function Contact() {
                 <Button
                   type="submit"
                   disabled={status === "submitting"}
-                  className="mt-3 h-12 w-full rounded-lg bg-primary text-sm font-semibold text-primary-foreground transition-all duration-200 hover:opacity-90 hover:shadow-lg disabled:opacity-60"
+                  className="mt-3 h-12 w-full rounded-lg bg-primary text-sm font-semibold text-primary-foreground transition-all duration-200 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60"
                 >
-                  {status === "submitting" ? "Skickar..." : "Skicka"}
-                  {status === "idle" && (
-                    <ArrowRight className="ml-1 h-4 w-4" aria-hidden="true" />
+                  {status === "submitting" ? (
+                    <>
+                      <svg className="mr-2 h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                      </svg>
+                      Skickar...
+                    </>
+                  ) : (
+                    <>
+                      Skicka
+                      <ArrowRight className="ml-1 h-4 w-4" aria-hidden="true" />
+                    </>
                   )}
                 </Button>
 
                 {status === "error" && (
-                  <p className="text-center text-sm text-red-600">
+                  <p role="alert" className="text-center text-sm text-red-600">
                     Något gick fel. Maila oss direkt på adam@sitelet.se.
                   </p>
                 )}

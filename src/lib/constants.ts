@@ -47,9 +47,11 @@ export const CASE_STUDIES = [
     tech: ["Next.js", "Schema.org", "SEO"],
     description:
       "Ronnebys största bilvårdscenter — 9 tjänster (199–2 499 kr), däckhotell, hämta/lämna-service, Swish/kort/faktura. Karlshamnsvägen 1, Ronneby.",
-    before:
-      "Hade ingen hemsida → nu synlig på Google med komplett prislista och kontaktinfo.",
+    before: ["Hade ingen hemsida", "nu synlig på Google med komplett prislista och kontaktinfo."],
+    metrics: [["0", "synlig på Google"], "9 tjänster online"],
     screenshot: "/projects/rbv-bilvard-desktop-hero.webp",
+    screenshotMobile: "/projects/rbv-bilvard-mobile-hero.webp",
+    screenshotTablet: "/projects/rbv-bilvard-tablet-hero.webp",
   },
   {
     name: "MasterCuts",
@@ -58,8 +60,11 @@ export const CASE_STUDIES = [
     tech: ["PHP", "Bokning", "Galleri"],
     description:
       "Hemsida med onlinebokning, prislista (fade 250 kr, skägg 150 kr, kombo 350 kr), galleri och Google Maps. Blasius Königsgatan 24, Ronneby.",
-    before: "Hade ingen hemsida → kunder bokar nu direkt online via sidan.",
+    before: ["Hade ingen hemsida", "kunder bokar nu direkt online via sidan."],
+    metrics: ["Onlinebokning live", "Synlig på Google"],
     screenshot: "/projects/mastercuts-desktop-hero.webp",
+    screenshotMobile: "/projects/mastercuts-mobile-hero.webp",
+    screenshotTablet: "/projects/mastercuts-tablet-hero.webp",
   },
   {
     name: "Mustasch Salon",
@@ -68,9 +73,11 @@ export const CASE_STUDIES = [
     tech: ["HTML/CSS", "Omdömen", "Schema.org"],
     description:
       "Komplett sajt med tjänster, 34 kundrecensioner (4.9/5 snitt), produktförsäljning och grundarens story. Blasius Königsgatan 30G, Ronneby.",
-    before:
-      "Från enkel Facebook-sida till professionell sajt med 4.9 stjärnor på Google.",
+    before: ["Enkel Facebook-sida", "professionell sajt med 4.9 stjärnor på Google."],
+    metrics: ["4.9/5 på Google", "34 recensioner"],
     screenshot: "/projects/mustasch-desktop-hero.webp",
+    screenshotMobile: "/projects/mustasch-mobile-hero.webp",
+    screenshotTablet: "/projects/mustasch-tablet-hero.webp",
   },
   {
     name: "Ledigare",
@@ -80,7 +87,10 @@ export const CASE_STUDIES = [
     description:
       "AI-driven plattform som hjälper svenska föräldrar spara i snitt 47 200 kr på föräldrapenningen. Kalkylator, optimeringsplan och SGI-bevakning.",
     before: null,
+    metrics: ["47 200 kr besparing i snitt", "AI-driven"],
     screenshot: "/projects/ledigare-desktop-hero.webp",
+    screenshotMobile: "/projects/ledigare-mobile-hero.webp",
+    screenshotTablet: "/projects/ledigare-tablet-hero.webp",
     tag: "Intern produkt",
   },
 ] as const;

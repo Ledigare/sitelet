@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ABOUT_BIO } from "@/lib/constants";
+import { ArrowRight } from "lucide-react";
 import {
   CodeTerminal,
   TypingAnimation,
@@ -52,12 +53,20 @@ export function About() {
                 Webbutvecklare, Ronneby
               </p>
             </div>
+
+            <a
+              href="#kontakt"
+              className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-foreground underline-offset-4 hover:underline rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            >
+              Vill du vara nästa?
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </a>
           </motion.div>
 
           {/* Right — terminal */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{
               duration: 0.6,

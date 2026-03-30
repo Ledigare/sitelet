@@ -46,9 +46,11 @@ export function Pricing() {
           </p>
 
           {/* Toggle — pill with sliding indicator */}
-          <div className="mt-8 inline-flex rounded-full border border-border bg-secondary/50 p-1">
+          <div className="mt-8 inline-flex rounded-full border border-border bg-secondary/50 p-1" role="radiogroup" aria-label="Faktureringsperiod">
             <button
               onClick={() => setYearly(false)}
+              role="radio"
+              aria-checked={!yearly}
               className="relative rounded-full px-5 py-2 text-sm font-medium transition-colors"
             >
               {!yearly && (
@@ -64,6 +66,8 @@ export function Pricing() {
             </button>
             <button
               onClick={() => setYearly(true)}
+              role="radio"
+              aria-checked={yearly}
               className="relative rounded-full px-5 py-2 text-sm font-medium transition-colors"
             >
               {yearly && (
@@ -172,8 +176,8 @@ export function Pricing() {
                   className={cn(
                     "mt-6 inline-flex w-full items-center justify-center rounded-lg py-3 text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
                     dark
-                      ? "bg-background text-foreground hover:bg-background/90"
-                      : "bg-primary text-primary-foreground hover:opacity-90"
+                      ? "bg-background text-foreground hover:bg-background/90 hover:shadow-md hover:scale-[1.02] active:scale-[0.98]"
+                      : "bg-primary text-primary-foreground hover:shadow-md hover:scale-[1.02] active:scale-[0.98]"
                   )}
                 >
                   Kom igång
@@ -192,7 +196,7 @@ export function Pricing() {
           className="mt-10 flex flex-col items-center gap-2 text-center text-sm text-muted-foreground"
         >
           <p>12 månaders avtal. Ingen uppsägningstid efter det — stanna för att du vill, inte för att du måste.</p>
-          <p className="text-xs text-muted-foreground/60">Alla priser exkl. moms. Ångerrätt gäller ej för skräddarsydda digitala tjänster (distansavtalslagen 2 kap. 11§ p.3).</p>
+          <p className="text-xs text-muted-foreground">Alla priser exkl. moms. Ångerrätt gäller ej för skräddarsydda digitala tjänster (distansavtalslagen 2 kap. 11§ p.3).</p>
         </motion.div>
       </div>
     </section>

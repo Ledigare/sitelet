@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BrowserMockup } from "@/components/browser-mockup";
 import { CASE_STUDIES } from "@/lib/constants";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function CaseStudies() {
@@ -30,11 +30,13 @@ export function CaseStudies() {
 
         <div className="mt-14">
           {/* Mobile: compact tabs */}
-          <div className="grid grid-cols-4 gap-1.5 pb-4 md:hidden">
+          <div className="grid grid-cols-4 gap-1.5 pb-4 md:hidden" role="tablist" aria-label="Välj projekt">
             {CASE_STUDIES.map((p, i) => (
               <button
                 key={p.name}
                 onClick={() => setActive(i)}
+                role="tab"
+                aria-selected={i === active}
                 className={cn(
                   "rounded-lg px-2 py-2.5 text-xs font-medium leading-tight transition-colors duration-200 text-center",
                   i === active
@@ -50,11 +52,13 @@ export function CaseStudies() {
           {/* Desktop: two-column — selector left, mockup right */}
           <div className="grid gap-8 md:grid-cols-[280px_1fr] lg:gap-12">
             {/* Left — project list (desktop only) */}
-            <div className="hidden flex-col gap-1 md:flex">
+            <div className="hidden flex-col gap-1 md:flex" role="tablist" aria-label="Välj projekt">
               {CASE_STUDIES.map((p, i) => (
                 <button
                   key={p.name}
                   onClick={() => setActive(i)}
+                  role="tab"
+                  aria-selected={i === active}
                   className={cn(
                     "group flex flex-col items-start rounded-xl px-4 py-4 text-left transition-all duration-200",
                     i === active
@@ -78,7 +82,7 @@ export function CaseStudies() {
             </div>
 
             {/* Right — mockup + details */}
-            <div>
+            <div role="tabpanel">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={active}
@@ -96,6 +100,8 @@ export function CaseStudies() {
                     <BrowserMockup
                       url={project.url.replace("https://", "")}
                       screenshot={project.screenshot}
+                      screenshotMobile={"screenshotMobile" in project ? project.screenshotMobile : undefined}
+                      screenshotTablet={"screenshotTablet" in project ? project.screenshotTablet : undefined}
                       alt={`${project.name} — ${project.type}`}
                       priority={active <= 1}
                     />
@@ -129,9 +135,40 @@ export function CaseStudies() {
                       <p className="mt-1 max-w-lg text-sm leading-relaxed text-muted-foreground">
                         {project.description}
                       </p>
+                      {"metrics" in project && project.metrics && (
+                        <div className="mt-2 flex flex-wrap gap-1.5">
+                          {project.metrics.map((m, mi) =>
+                            Array.isArray(m) ? (
+                              <span
+                                key={mi}
+                                className="inline-flex items-center gap-1 rounded-full bg-foreground px-2.5 py-0.5 text-[11px] font-semibold text-background"
+                              >
+                                {m[0]}
+                                <ArrowRight className="h-3 w-3" aria-hidden="true" />
+                                {m[1]}
+                              </span>
+                            ) : (
+                              <span
+                                key={mi}
+                                className="rounded-full bg-foreground px-2.5 py-0.5 text-[11px] font-semibold text-background"
+                              >
+                                {m}
+                              </span>
+                            )
+                          )}
+                        </div>
+                      )}
                       {project.before && (
-                        <p className="mt-1.5 text-sm italic text-muted-foreground/60">
-                          {project.before}
+                        <p className="mt-1.5 inline-flex items-center gap-1 text-sm italic text-muted-foreground/80">
+                          {Array.isArray(project.before) ? (
+                            <>
+                              {project.before[0]}
+                              <ArrowRight className="h-3 w-3 shrink-0 not-italic" aria-hidden="true" />
+                              {project.before[1]}
+                            </>
+                          ) : (
+                            project.before
+                          )}
                         </p>
                       )}
                     </div>

@@ -9,6 +9,7 @@ import {
   Mail,
   Star,
   BarChart3,
+  ArrowRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -67,10 +68,10 @@ const containerVariants = {
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 12 },
+  hidden: { opacity: 0, scale: 0.85 },
   visible: {
     opacity: 1,
-    y: 0,
+    scale: 1,
     transition: {
       duration: 0.4,
       ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number],
@@ -121,7 +122,7 @@ function IntegrationCard({ item, size }: { item: IntegrationItem; size: "lg" | "
           "text-center transition-colors duration-300",
           isLg
             ? "text-xs font-medium text-muted-foreground group-hover:text-foreground"
-            : "text-[11px] text-muted-foreground/70 group-hover:text-muted-foreground"
+            : "text-[11px] text-muted-foreground group-hover:text-foreground"
         )}
       >
         {item.label}
@@ -178,15 +179,24 @@ export function Integrations() {
           ))}
         </motion.div>
 
-        <motion.p
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-8 text-center text-sm text-muted-foreground"
+          className="mt-8 flex flex-col items-center gap-3 text-center"
         >
-          Behöver du något annat? Vi integrerar de flesta API:er och tjänster.
-        </motion.p>
+          <p className="text-sm text-muted-foreground">
+            Behöver du något annat? Vi integrerar de flesta API:er och tjänster.
+          </p>
+          <a
+            href="#kontakt"
+            className="inline-flex items-center gap-2 text-sm font-medium text-foreground underline-offset-4 hover:underline rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          >
+            Fråga om din integration
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </a>
+        </motion.div>
       </div>
     </section>
   );

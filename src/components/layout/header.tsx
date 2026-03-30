@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { NAV_LINKS } from "@/lib/constants";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -30,12 +30,30 @@ const menuItemVariants = {
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const sections = document.querySelectorAll("section[id]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveSection(`#${entry.target.id}`);
+          }
+        }
+      },
+      { rootMargin: "-40% 0px -50% 0px" }
+    );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -47,6 +65,47 @@ export function Header() {
     return () => {
       document.body.style.overflow = "";
     };
+  }, [mobileOpen]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [mobileOpen]);
+
+  useEffect(() => {
+    if (!mobileOpen || !menuRef.current) return;
+    const focusableEls = menuRef.current.querySelectorAll<HTMLElement>(
+      'a[href], button'
+    );
+    if (focusableEls.length === 0) return;
+
+    const first = focusableEls[0];
+    const last = focusableEls[focusableEls.length - 1];
+
+    // Focus first element when menu opens
+    first.focus();
+
+    const handleTab = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    document.addEventListener("keydown", handleTab);
+    return () => document.removeEventListener("keydown", handleTab);
   }, [mobileOpen]);
 
   return (
@@ -74,7 +133,13 @@ export function Header() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="text-[13px] text-muted-foreground transition-colors duration-200 hover:text-foreground rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                aria-current={activeSection === link.href ? "true" : undefined}
+                className={cn(
+                  "text-[13px] transition-colors duration-200 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                  activeSection === link.href
+                    ? "text-foreground font-medium"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
               >
                 {link.label}
               </a>
@@ -86,11 +151,11 @@ export function Header() {
         <a
           href="#kontakt"
           className={cn(
-            "hidden md:inline-flex items-center rounded-lg bg-primary font-medium text-primary-foreground transition-all duration-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+            "hidden md:inline-flex items-center rounded-lg bg-primary font-medium text-primary-foreground transition-all duration-200 hover:shadow-md hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
             scrolled ? "px-3.5 py-1.5 text-xs" : "px-4 py-2 text-sm"
           )}
         >
-          Kontakt
+          Gratis webbanalys
         </a>
 
         {/* Mobile hamburger */}
@@ -124,10 +189,13 @@ export function Header() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
+            ref={menuRef}
             variants={menuVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
+            role="dialog"
+            aria-modal="true"
             className="fixed inset-0 z-40 bg-background md:hidden"
           >
             <nav className="flex h-full flex-col items-center justify-center gap-8">

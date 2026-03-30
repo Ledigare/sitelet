@@ -17,10 +17,14 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://sitelet.se"),
+  metadataBase: new URL("https://www.sitelet.se"),
   title: "Sitelet — Hemsidor som faktiskt funkar",
   description:
     "Vi bygger hemsidor för svenska företag. Snabbt, snyggt, och utan krångel. Baserade i Blekinge.",
+  alternates: {
+    canonical: "https://www.sitelet.se",
+    languages: { sv: "https://www.sitelet.se" },
+  },
   icons: {
     icon: "/favicon.svg",
   },
@@ -46,7 +50,7 @@ const jsonLd = {
   name: "Sitelet",
   description:
     "Vi bygger hemsidor för svenska företag. Snabbt, snyggt, och utan krångel.",
-  url: "https://sitelet.se",
+  url: "https://www.sitelet.se",
   email: "adam@sitelet.se",
   areaServed: {
     "@type": "Country",

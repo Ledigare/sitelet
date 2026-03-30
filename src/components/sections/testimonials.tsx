@@ -1,12 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
+import { ArrowRight, Star } from "lucide-react";
 
 interface Testimonial {
   quote: string;
   name: string;
   role: string;
   company: string;
+  stars: number;
+  source: string;
 }
 
 const TESTIMONIALS: Testimonial[] = [
@@ -16,6 +20,8 @@ const TESTIMONIALS: Testimonial[] = [
     name: "Ayob Z.",
     role: "Ägare",
     company: "MasterCuts",
+    stars: 5,
+    source: "Google",
   },
   {
     quote:
@@ -23,6 +29,8 @@ const TESTIMONIALS: Testimonial[] = [
     name: "Ousama N.",
     role: "Ägare",
     company: "Mustasch Salon",
+    stars: 5,
+    source: "Google",
   },
 ];
 
@@ -37,10 +45,10 @@ const containerVariants = {
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, scale: 0.92 },
   visible: {
     opacity: 1,
-    y: 0,
+    scale: 1,
     transition: {
       duration: 0.5,
       ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
@@ -97,7 +105,7 @@ export function Testimonials() {
             <motion.blockquote
               key={i}
               variants={cardVariants}
-              className="flex h-full flex-col justify-between rounded-2xl border border-border bg-background p-8 md:p-9 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+              className="flex h-full flex-col justify-between rounded-2xl border border-border bg-background p-8 md:p-9 transition-all duration-300 hover:-translate-y-1 hover:shadow-md active:translate-y-0"
             >
               <div>
                 <QuoteMark />
@@ -115,7 +123,7 @@ export function Testimonials() {
                     .map((n) => n[0])
                     .join("")}
                 </div>
-                <div>
+                <div className="flex-1">
                   <cite className="not-italic text-sm font-medium text-foreground">
                     {t.name}
                   </cite>
@@ -123,9 +131,38 @@ export function Testimonials() {
                     {t.role}, {t.company}
                   </p>
                 </div>
+                <div className="flex items-center gap-1 shrink-0" aria-label={`${t.stars} av 5 stjärnor på ${t.source}`}>
+                  {Array.from({ length: t.stars }).map((_, j) => (
+                    <Star key={j} className="h-3.5 w-3.5 fill-foreground text-foreground" strokeWidth={0} />
+                  ))}
+                  <Image
+                    src="/logos/google.webp"
+                    alt="Google"
+                    width={16}
+                    height={16}
+                    className="ml-1.5 h-4 w-4"
+                  />
+                </div>
               </footer>
             </motion.blockquote>
           ))}
+        </motion.div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-10 text-center"
+        >
+          <a
+            href="#kontakt"
+            className="inline-flex items-center gap-2 text-sm font-medium text-foreground underline-offset-4 hover:underline rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          >
+            Vill du ha samma resultat? Hör av dig
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </a>
         </motion.div>
       </div>
     </section>
