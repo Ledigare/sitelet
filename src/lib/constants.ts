@@ -3,6 +3,7 @@ export const NAV_LINKS = [
   { label: "Projekt", href: "#projekt" },
   { label: "Priser", href: "#priser" },
   { label: "Om", href: "#om" },
+  { label: "Blogg", href: "/blogg" },
   { label: "Kontakt", href: "#kontakt" },
 ] as const;
 
@@ -42,6 +43,7 @@ export const PROCESS_STEPS = [
 export const CASE_STUDIES = [
   {
     name: "RBV Bilvård Center",
+    mobileLabel: "Bilvård",
     url: "https://rbv-bilvard.vercel.app/",
     type: "Bilvård & Detailing",
     tech: ["Next.js", "Schema.org", "SEO"],
@@ -55,6 +57,7 @@ export const CASE_STUDIES = [
   },
   {
     name: "MasterCuts",
+    mobileLabel: "Frisör",
     url: "https://mastercuts.se/",
     type: "Barbershop",
     tech: ["PHP", "Bokning", "Galleri"],
@@ -68,6 +71,7 @@ export const CASE_STUDIES = [
   },
   {
     name: "Mustasch Salon",
+    mobileLabel: "Salong",
     url: "https://mustasch.salon/",
     type: "Barbershop & Salong",
     tech: ["HTML/CSS", "Omdömen", "Schema.org"],
@@ -81,6 +85,7 @@ export const CASE_STUDIES = [
   },
   {
     name: "Ledigare",
+    mobileLabel: "SaaS",
     url: "https://www.ledigare.se/",
     type: "SaaS-plattform",
     tech: ["Next.js", "Supabase", "AI"],

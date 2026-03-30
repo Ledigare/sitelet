@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Hero } from "@/components/sections/hero";
 import { Process } from "@/components/sections/process";
 import { CaseStudies } from "@/components/sections/case-studies";
+import { MarqueeDivider } from "@/components/marquee-divider";
 
 const Testimonials = dynamic(() =>
   import("@/components/sections/testimonials").then((m) => m.Testimonials)
@@ -32,8 +33,10 @@ export default function Home() {
         <Hero />
         <Process />
         <CaseStudies />
+        <MarqueeDivider text="Hemsidor som faktiskt funkar" />
         <Testimonials />
         <Pricing />
+        <MarqueeDivider text="Snabbt · Snyggt · Utan krångel" />
         <Integrations />
         <Faq />
         <About />

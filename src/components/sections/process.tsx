@@ -55,12 +55,13 @@ export function Process() {
         >
           {PROCESS_STEPS.map((step, i) => (
             <motion.div key={step.number} variants={stepVariants}>
-              {/* Single step row — number and content on the same baseline */}
-              <div className="flex items-center gap-6 md:gap-10">
-                {/* Number */}
+              {/* Step row — grid for consistent alignment */}
+              <div className="grid grid-cols-[auto_1fr] items-stretch gap-x-8 md:grid-cols-[6rem_3rem_1fr] md:gap-x-8">
+                {/* Number — scales to fill content height */}
                 <span
                   aria-hidden="true"
-                  className="shrink-0 select-none font-heading text-6xl font-bold text-foreground/[0.15] md:w-24 md:text-8xl md:text-right"
+                  className="text-outline flex items-center select-none font-heading text-[3rem] font-bold text-center leading-none md:text-7xl md:text-right"
+                  style={{ fontSize: "clamp(3rem, 6vw, 5.5rem)" }}
                 >
                   {step.number}
                 </span>
@@ -68,7 +69,7 @@ export function Process() {
                 {/* Dashed line — desktop only */}
                 <div
                   aria-hidden="true"
-                  className="hidden h-px w-12 border-t border-dashed border-border md:block"
+                  className="hidden h-px border-t border-dashed border-border md:block"
                 />
 
                 {/* Content */}
@@ -84,10 +85,12 @@ export function Process() {
 
               {/* Connecting line between steps */}
               {i < PROCESS_STEPS.length - 1 && (
-                <div
-                  aria-hidden="true"
-                  className="ml-[1.65rem] h-4 w-px bg-border md:ml-12"
-                />
+                <div className="grid grid-cols-[auto_1fr] md:grid-cols-[6rem_3rem_1fr]">
+                  <div
+                    aria-hidden="true"
+                    className="mx-auto h-10 w-px bg-border"
+                  />
+                </div>
               )}
             </motion.div>
           ))}

@@ -14,10 +14,11 @@ const containerVariants = {
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 40, rotateX: -8 },
   visible: {
     opacity: 1,
     y: 0,
+    rotateX: 0,
     transition: {
       duration: 0.6,
       ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
@@ -95,6 +96,7 @@ export function Pricing() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
+          style={{ perspective: 800 }}
           className="mt-10 grid items-center gap-5 md:grid-cols-3"
         >
           {PRICING_TIERS.map((tier) => {
@@ -120,7 +122,7 @@ export function Pricing() {
                 <h3 className="font-heading text-lg font-semibold">
                   {tier.name}
                 </h3>
-                <p className={cn("mt-1 text-sm", dark ? "text-background/60" : "text-muted-foreground")}>
+                <p className={cn("mt-1 text-sm", dark ? "text-background/75" : "text-muted-foreground")}>
                   {tier.description}
                 </p>
 
@@ -138,35 +140,35 @@ export function Pricing() {
                       <span className="font-heading text-4xl font-bold tabular-nums tracking-tight md:text-5xl">
                         {yearly ? tier.yearlyPrice : tier.monthlyPrice}
                       </span>
-                      <span className={cn("text-sm", dark ? "text-background/50" : "text-muted-foreground")}>
+                      <span className={cn("text-sm", dark ? "text-background/70" : "text-muted-foreground")}>
                         {yearly ? "kr/år" : "kr/mån"}
                       </span>
                     </motion.div>
                   </AnimatePresence>
-                  <p className={cn("mt-2 text-xs", dark ? "text-background/35" : "text-muted-foreground/70")}>
+                  <p className={cn("mt-2 text-xs", dark ? "text-background/85" : "text-muted-foreground")}>
                     {tier.setupFee} kr startavgift{!yearly && " · 12 mån"}
                   </p>
                 </div>
 
                 {/* Separator */}
-                <hr className={cn("mt-6 border-dashed", dark ? "border-background/15" : "border-border")} />
+                <hr className={cn("mt-6 border-dashed", dark ? "border-background/25" : "border-border")} />
 
                 {/* Features — delivery time as first item */}
                 <ul className="mt-5 flex flex-1 flex-col gap-2.5" role="list">
-                  <li className={cn("flex items-center gap-2.5 text-sm font-medium", dark ? "text-background/90" : "text-foreground")}>
-                    <Clock className={cn("h-3.5 w-3.5 shrink-0", dark ? "text-background/50" : "text-muted-foreground")} strokeWidth={2} aria-hidden="true" />
+                  <li className={cn("flex items-center gap-2.5 text-sm font-medium", dark ? "text-background" : "text-foreground")}>
+                    <Clock className={cn("h-3.5 w-3.5 shrink-0", dark ? "text-background/70" : "text-muted-foreground")} strokeWidth={2} aria-hidden="true" />
                     {tier.delivery}
                   </li>
                   {tier.features.map((feature) => (
-                    <li key={feature} className={cn("flex items-center gap-2.5 text-sm", dark ? "text-background/70" : "text-foreground")}>
-                      <Check className={cn("h-3.5 w-3.5 shrink-0", dark ? "text-background/40" : "text-muted-foreground")} strokeWidth={2} aria-hidden="true" />
+                    <li key={feature} className={cn("flex items-center gap-2.5 text-sm", dark ? "text-background/85" : "text-foreground")}>
+                      <Check className={cn("h-3.5 w-3.5 shrink-0", dark ? "text-background/70" : "text-muted-foreground")} strokeWidth={2} aria-hidden="true" />
                       {feature}
                     </li>
                   ))}
                 </ul>
 
                 {/* Best for */}
-                <p className={cn("mt-5 text-xs", dark ? "text-background/35" : "text-muted-foreground")}>
+                <p className={cn("mt-5 text-xs", dark ? "text-background/85" : "text-muted-foreground")}>
                   Bäst för: {tier.bestFor}
                 </p>
 

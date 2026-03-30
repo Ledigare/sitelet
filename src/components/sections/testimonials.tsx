@@ -11,6 +11,7 @@ interface Testimonial {
   company: string;
   stars: number;
   source: string;
+  photo: string;
 }
 
 const TESTIMONIALS: Testimonial[] = [
@@ -22,6 +23,7 @@ const TESTIMONIALS: Testimonial[] = [
     company: "MasterCuts",
     stars: 5,
     source: "Google",
+    photo: "/testimonials/ayob.jpg",
   },
   {
     quote:
@@ -31,6 +33,7 @@ const TESTIMONIALS: Testimonial[] = [
     company: "Mustasch Salon",
     stars: 5,
     source: "Google",
+    photo: "/testimonials/osama.webp",
   },
 ];
 
@@ -80,19 +83,26 @@ export function Testimonials() {
   return (
     <section className="bg-background-secondary px-6 py-20 md:py-28">
       <div className="mx-auto max-w-[1200px]">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-        >
-          <h2 className="font-heading text-3xl font-semibold tracking-tight md:text-4xl">
+        <div>
+          <motion.h2
+            initial={{ clipPath: "inset(0 100% 0 0)" }}
+            whileInView={{ clipPath: "inset(0 0% 0 0)" }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="font-heading text-3xl font-semibold tracking-tight md:text-4xl"
+          >
             Vad kunderna säger
-          </h2>
-          <p className="mt-3 max-w-md text-muted-foreground">
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+            className="mt-3 max-w-md text-muted-foreground"
+          >
             Riktiga omdömen från riktiga kunder.
-          </p>
-        </motion.div>
+          </motion.p>
+        </div>
 
         <motion.div
           variants={containerVariants}
@@ -105,45 +115,46 @@ export function Testimonials() {
             <motion.blockquote
               key={i}
               variants={cardVariants}
-              className="flex h-full flex-col justify-between rounded-2xl border border-border bg-background p-8 md:p-9 transition-all duration-300 hover:-translate-y-1 hover:shadow-md active:translate-y-0"
+              className="flex h-full flex-col rounded-2xl border border-border bg-background transition-all duration-300 hover:-translate-y-1 hover:shadow-md active:translate-y-0"
             >
-              <div>
+              {/* Author header with large photo */}
+              <div className="flex items-center gap-4 p-6 pb-0 md:p-8 md:pb-0">
+                <Image
+                  src={t.photo}
+                  alt={t.name}
+                  width={80}
+                  height={80}
+                  className="h-16 w-16 shrink-0 rounded-full object-cover ring-2 ring-border md:h-20 md:w-20"
+                />
+                <div>
+                  <cite className="not-italic text-base font-semibold text-foreground">
+                    {t.name}
+                  </cite>
+                  <p className="text-sm text-muted-foreground">
+                    {t.role}, {t.company}
+                  </p>
+                  <div className="mt-1.5 flex items-center gap-1" aria-label={`${t.stars} av 5 stjärnor på ${t.source}`}>
+                    {Array.from({ length: t.stars }).map((_, j) => (
+                      <Star key={j} className="h-3.5 w-3.5 fill-foreground text-foreground" strokeWidth={0} />
+                    ))}
+                    <Image
+                      src="/logos/google.webp"
+                      alt="Google"
+                      width={16}
+                      height={16}
+                      className="ml-1 h-4 w-4"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Quote */}
+              <div className="flex flex-1 flex-col p-6 pt-4 md:p-8 md:pt-5">
                 <QuoteMark />
-                <p className="mt-5 text-lg leading-relaxed text-foreground">
+                <p className="mt-3 text-base leading-relaxed text-foreground md:text-lg">
                   {t.quote}
                 </p>
               </div>
-              <footer className="mt-6 flex items-center gap-3 border-t border-border pt-5">
-                <div
-                  aria-hidden="true"
-                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-secondary text-sm font-semibold text-foreground"
-                >
-                  {t.name
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")}
-                </div>
-                <div className="flex-1">
-                  <cite className="not-italic text-sm font-medium text-foreground">
-                    {t.name}
-                  </cite>
-                  <p className="text-xs text-muted-foreground">
-                    {t.role}, {t.company}
-                  </p>
-                </div>
-                <div className="flex items-center gap-1 shrink-0" aria-label={`${t.stars} av 5 stjärnor på ${t.source}`}>
-                  {Array.from({ length: t.stars }).map((_, j) => (
-                    <Star key={j} className="h-3.5 w-3.5 fill-foreground text-foreground" strokeWidth={0} />
-                  ))}
-                  <Image
-                    src="/logos/google.webp"
-                    alt="Google"
-                    width={16}
-                    height={16}
-                    className="ml-1.5 h-4 w-4"
-                  />
-                </div>
-              </footer>
             </motion.blockquote>
           ))}
         </motion.div>

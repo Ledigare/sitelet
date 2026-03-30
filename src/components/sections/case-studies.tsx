@@ -1,15 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BrowserMockup } from "@/components/browser-mockup";
 import { CASE_STUDIES } from "@/lib/constants";
 import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 export function CaseStudies() {
   const [active, setActive] = useState(0);
   const project = CASE_STUDIES[active];
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    }
+  };
 
   return (
     <section id="projekt" className="px-6 py-20 md:py-28">
@@ -24,7 +35,7 @@ export function CaseStudies() {
             Projekt
           </h2>
           <p className="mt-3 max-w-md text-muted-foreground">
-            Verkliga sajter för verkliga företag.
+            Hemsidor vi byggt — och resultaten.
           </p>
         </motion.div>
 
@@ -44,7 +55,7 @@ export function CaseStudies() {
                     : "bg-secondary text-muted-foreground"
                 )}
               >
-                {p.name.split(" ")[0]}
+                {p.mobileLabel}
               </button>
             ))}
           </div>
@@ -52,11 +63,12 @@ export function CaseStudies() {
           {/* Desktop: two-column — selector left, mockup right */}
           <div className="grid gap-8 md:grid-cols-[280px_1fr] lg:gap-12">
             {/* Left — project list (desktop only) */}
-            <div className="hidden flex-col gap-1 md:flex" role="tablist" aria-label="Välj projekt">
+            <div ref={containerRef} onMouseMove={handleMouseMove} onMouseLeave={() => setHoverIndex(null)} className="relative hidden flex-col gap-1 md:flex" role="tablist" aria-label="Välj projekt">
               {CASE_STUDIES.map((p, i) => (
                 <button
                   key={p.name}
                   onClick={() => setActive(i)}
+                  onMouseEnter={() => setHoverIndex(i)}
                   role="tab"
                   aria-selected={i === active}
                   className={cn(
@@ -79,6 +91,35 @@ export function CaseStudies() {
                   </span>
                 </button>
               ))}
+              {hoverIndex !== null && (
+                <div
+                  className="pointer-events-none absolute z-30 overflow-hidden rounded-xl shadow-2xl"
+                  style={{
+                    left: mousePos.x + 20,
+                    top: mousePos.y - 80,
+                    opacity: 1,
+                    transition: "opacity 0.2s ease-out",
+                  }}
+                >
+                  <div className="relative w-[240px] h-[150px] bg-secondary rounded-xl overflow-hidden">
+                    {CASE_STUDIES.map((p, idx) => (
+                      <Image
+                        key={p.name}
+                        src={p.screenshot}
+                        alt={p.name}
+                        width={240}
+                        height={150}
+                        className="absolute inset-0 w-full h-full object-cover transition-all duration-300"
+                        style={{
+                          opacity: hoverIndex === idx ? 1 : 0,
+                          transform: hoverIndex === idx ? "scale(1)" : "scale(1.1)",
+                          filter: hoverIndex === idx ? "none" : "blur(8px)",
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Right — mockup + details */}
@@ -91,52 +132,31 @@ export function CaseStudies() {
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
                 >
-                  <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block cursor-pointer rounded-xl transition-transform duration-300 ease-out hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4"
-                  >
-                    <BrowserMockup
-                      url={project.url.replace("https://", "")}
-                      screenshot={project.screenshot}
-                      screenshotMobile={"screenshotMobile" in project ? project.screenshotMobile : undefined}
-                      screenshotTablet={"screenshotTablet" in project ? project.screenshotTablet : undefined}
-                      alt={`${project.name} — ${project.type}`}
-                      priority={active <= 1}
-                    />
-                  </a>
+                  {/* Mobile project header — context before mockup */}
+                  <div className="mb-3 md:hidden">
+                    <h3 className="font-heading text-lg font-semibold">
+                      {project.name}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      {project.type}
+                    </p>
+                  </div>
+
+                  <BrowserMockup
+                    url={project.url.replace("https://", "")}
+                    screenshot={project.screenshot}
+                    screenshotMobile={"screenshotMobile" in project ? project.screenshotMobile : undefined}
+                    screenshotTablet={"screenshotTablet" in project ? project.screenshotTablet : undefined}
+                    alt={`${project.name} — ${project.type}`}
+                    priority={active <= 1}
+                  />
 
                   {/* Details */}
                   <div className="mt-5 flex flex-col gap-2 md:flex-row md:items-start md:justify-between md:gap-8">
                     <div className="flex-1">
-                      <div className="flex flex-wrap items-center gap-1.5">
-                        <span className="rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground">
-                          {project.type}
-                        </span>
-                        {"tag" in project && project.tag && (
-                          <span className="rounded-full border border-border px-3 py-1 text-xs font-medium text-muted-foreground">
-                            {project.tag}
-                          </span>
-                        )}
-                        {"tech" in project &&
-                          project.tech.map((t) => (
-                            <span
-                              key={t}
-                              className="rounded-md bg-secondary/70 px-2 py-0.5 text-[11px] text-muted-foreground"
-                            >
-                              {t}
-                            </span>
-                          ))}
-                      </div>
-                      <h3 className="mt-2 font-heading text-xl font-semibold md:hidden">
-                        {project.name}
-                      </h3>
-                      <p className="mt-1 max-w-lg text-sm leading-relaxed text-muted-foreground">
-                        {project.description}
-                      </p>
+                      {/* Metrics first — lead with results */}
                       {"metrics" in project && project.metrics && (
-                        <div className="mt-2 flex flex-wrap gap-1.5">
+                        <div className="flex flex-wrap gap-1.5">
                           {project.metrics.map((m, mi) =>
                             Array.isArray(m) ? (
                               <span
@@ -158,6 +178,31 @@ export function CaseStudies() {
                           )}
                         </div>
                       )}
+
+                      {/* Type + tech tags — tech hidden on mobile */}
+                      <div className="mt-2 flex flex-wrap items-center gap-1.5">
+                        <span className="rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground">
+                          {project.type}
+                        </span>
+                        {"tag" in project && project.tag && (
+                          <span className="rounded-full border border-border px-3 py-1 text-xs font-medium text-muted-foreground">
+                            {project.tag}
+                          </span>
+                        )}
+                        {"tech" in project &&
+                          project.tech.map((t) => (
+                            <span
+                              key={t}
+                              className="hidden rounded-md bg-secondary/70 px-2 py-0.5 text-[11px] text-muted-foreground md:inline-block"
+                            >
+                              {t}
+                            </span>
+                          ))}
+                      </div>
+
+                      <p className="mt-2 max-w-lg text-sm leading-relaxed text-muted-foreground">
+                        {project.description}
+                      </p>
                       {project.before && (
                         <p className="mt-1.5 inline-flex items-center gap-1 text-sm italic text-muted-foreground/80">
                           {Array.isArray(project.before) ? (

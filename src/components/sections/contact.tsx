@@ -246,7 +246,7 @@ export function Contact() {
                 </Button>
 
                 {status === "error" && (
-                  <p role="alert" className="text-center text-sm text-red-600">
+                  <p role="alert" className="text-center text-sm text-destructive">
                     Något gick fel. Maila oss direkt på adam@sitelet.se.
                   </p>
                 )}

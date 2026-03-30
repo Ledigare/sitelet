@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useTheme } from "next-themes";
 import { NAV_LINKS } from "@/lib/constants";
 import { motion, AnimatePresence } from "framer-motion";
+import { Sun, Moon, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SiteletMark, SiteletLogo } from "@/components/logo";
 
@@ -31,7 +33,11 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme();
   const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -147,42 +153,47 @@ export function Header() {
           ))}
         </ul>
 
-        {/* Desktop CTA */}
-        <a
-          href="#kontakt"
-          className={cn(
-            "hidden md:inline-flex items-center rounded-lg bg-primary font-medium text-primary-foreground transition-all duration-200 hover:shadow-md hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-            scrolled ? "px-3.5 py-1.5 text-xs" : "px-4 py-2 text-sm"
-          )}
-        >
-          Gratis webbanalys
-        </a>
+        <div className="hidden items-center gap-3 md:flex">
+          {/* Theme toggle */}
+          <button
+            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+            className="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-colors duration-200 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            aria-label={mounted && resolvedTheme === "dark" ? "Byt till ljust läge" : "Byt till mörkt läge"}
+          >
+            {mounted && resolvedTheme === "dark" ? (
+              <Sun className="h-4 w-4" />
+            ) : (
+              <Moon className="h-4 w-4" />
+            )}
+          </button>
 
-        {/* Mobile hamburger */}
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="relative z-50 flex md:hidden h-10 w-10 items-center justify-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          aria-label={mobileOpen ? "Stäng meny" : "Öppna meny"}
-          aria-expanded={mobileOpen}
-        >
-          <div className="flex flex-col gap-1.5">
-            <span
-              className={`block h-[2px] w-5 bg-foreground transition-all duration-300 origin-center ${
-                mobileOpen ? "translate-y-[5px] rotate-45" : ""
-              }`}
-            />
-            <span
-              className={`block h-[2px] w-5 bg-foreground transition-all duration-300 ${
-                mobileOpen ? "opacity-0" : ""
-              }`}
-            />
-            <span
-              className={`block h-[2px] w-5 bg-foreground transition-all duration-300 origin-center ${
-                mobileOpen ? "-translate-y-[5px] -rotate-45" : ""
-              }`}
-            />
-          </div>
-        </button>
+          {/* Desktop CTA */}
+          <a
+            href="#kontakt"
+            className={cn(
+              "inline-flex items-center rounded-lg bg-primary font-medium text-primary-foreground transition-all duration-200 hover:shadow-md hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+              scrolled ? "px-3.5 py-1.5 text-xs" : "px-4 py-2 text-sm"
+            )}
+          >
+            Gratis webbanalys
+          </a>
+        </div>
+
+        {/* Mobile hamburger — open only */}
+        {!mobileOpen && (
+          <button
+            onClick={() => setMobileOpen(true)}
+            className="relative flex md:hidden h-10 w-10 items-center justify-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            aria-label="Öppna meny"
+            aria-expanded={false}
+          >
+            <div className="flex flex-col gap-1.5">
+              <span className="block h-[2px] w-5 bg-foreground" />
+              <span className="block h-[2px] w-5 bg-foreground" />
+              <span className="block h-[2px] w-5 bg-foreground" />
+            </div>
+          </button>
+        )}
       </nav>
 
       {/* Mobile menu */}
@@ -198,6 +209,15 @@ export function Header() {
             aria-modal="true"
             className="fixed inset-0 z-40 bg-background md:hidden"
           >
+            {/* Close button inside overlay */}
+            <button
+              onClick={() => setMobileOpen(false)}
+              className="fixed top-4 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              aria-label="Stäng meny"
+            >
+              <X className="h-7 w-7 text-foreground" strokeWidth={2} />
+            </button>
+
             <nav className="flex h-full flex-col items-center justify-center gap-8">
               {NAV_LINKS.map((link) => (
                 <motion.a
@@ -210,14 +230,21 @@ export function Header() {
                   {link.label}
                 </motion.a>
               ))}
-              <motion.a
-                href="#kontakt"
-                onClick={() => setMobileOpen(false)}
-                variants={menuItemVariants}
-                className="mt-4 rounded-lg bg-primary px-8 py-3 text-lg font-medium text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-              >
-                Kontakt
-              </motion.a>
+              {mounted && (
+                <motion.button
+                  variants={menuItemVariants}
+                  onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+                  className="mt-6 flex items-center gap-2 rounded-md px-4 py-2 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  aria-label={resolvedTheme === "dark" ? "Byt till ljust läge" : "Byt till mörkt läge"}
+                >
+                  {resolvedTheme === "dark" ? (
+                    <Sun className="h-5 w-5" />
+                  ) : (
+                    <Moon className="h-5 w-5" />
+                  )}
+                  <span className="text-sm">{resolvedTheme === "dark" ? "Ljust läge" : "Mörkt läge"}</span>
+                </motion.button>
+              )}
             </nav>
           </motion.div>
         )}

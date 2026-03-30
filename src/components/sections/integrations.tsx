@@ -4,11 +4,9 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import {
   Calendar,
-  Sparkles,
   MessageSquare,
   Mail,
   Star,
-  BarChart3,
   ArrowRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -18,47 +16,40 @@ interface IntegrationItem {
   label: string;
   icon?: React.ReactNode;
   logo?: string;
+  logoDark?: string;
   badge?: string;
 }
 
 const PRIMARY: IntegrationItem[] = [
-  { name: "swish", label: "Swish-betalning", logo: "/logos/swish.svg" },
-  { name: "stripe", label: "Kortbetalning", logo: "/logos/stripe.svg" },
-  { name: "klarna", label: "Köp nu, betala sen", logo: "/logos/klarna.svg" },
-  {
-    name: "booking",
-    label: "Eget bokningssystem",
-    icon: <Calendar className="h-7 w-7" strokeWidth={1.5} />,
-  },
-  {
-    name: "ai",
-    label: "AI-kundtjänst 24/7",
-    icon: <Sparkles className="h-7 w-7" strokeWidth={1.5} />,
-    badge: "Nyhet",
-  },
-  { name: "bankid", label: "BankID-verifiering", logo: "/logos/bankid.svg" },
+  { name: "swish", label: "Betalning", logo: "/logos/swish.svg", logoDark: "/logos/swish-white.svg" },
+  { name: "stripe", label: "Kortbetalning", logo: "/logos/stripe.svg", logoDark: "/logos/stripe-white.svg" },
+  { name: "klarna", label: "Delbetalning", logo: "/logos/klarna.png", logoDark: "/logos/klarna-white.png" },
+  { name: "bankid", label: "Verifiering", logo: "/logos/bankid.svg", logoDark: "/logos/bankid-white.svg" },
+  { name: "fortnox", label: "Bokföring", logo: "/logos/fortnox.svg", logoDark: "/logos/fortnox-white.svg" },
+  { name: "bokadirekt", label: "Onlinebokning", logo: "/logos/bokadirekt.svg" },
+  { name: "google", label: "Sök & Kartor", logo: "/logos/google-maps.svg" },
 ];
 
 const SECONDARY: IntegrationItem[] = [
   {
+    name: "booking",
+    label: "Bokningssystem",
+    icon: <Calendar className="h-6 w-6" strokeWidth={1.5} />,
+  },
+  {
     name: "sms",
     label: "SMS-påminnelser",
-    icon: <MessageSquare className="h-5 w-5" strokeWidth={1.5} />,
+    icon: <MessageSquare className="h-6 w-6" strokeWidth={1.5} />,
   },
   {
     name: "email",
     label: "E-postautomation",
-    icon: <Mail className="h-5 w-5" strokeWidth={1.5} />,
+    icon: <Mail className="h-6 w-6" strokeWidth={1.5} />,
   },
   {
     name: "reviews",
     label: "Google Reviews",
-    icon: <Star className="h-5 w-5" strokeWidth={1.5} />,
-  },
-  {
-    name: "ads",
-    label: "Annons-spårning",
-    icon: <BarChart3 className="h-5 w-5" strokeWidth={1.5} />,
+    icon: <Star className="h-6 w-6" strokeWidth={1.5} />,
   },
 ];
 
@@ -98,17 +89,31 @@ function IntegrationCard({ item, size }: { item: IntegrationItem; size: "lg" | "
       <div
         className={cn(
           "flex items-center justify-center transition-all duration-300",
-          isLg ? "h-11 w-11" : "h-8 w-8"
+          isLg ? "h-14 w-14" : "h-10 w-10"
         )}
       >
         {item.logo ? (
-          <Image
-            src={item.logo}
-            alt={item.label}
-            width={isLg ? 44 : 32}
-            height={isLg ? 44 : 32}
-            className="h-full w-full object-contain grayscale opacity-50 transition-all duration-300 group-hover:grayscale-0 group-hover:opacity-100"
-          />
+          <>
+            <Image
+              src={item.logo}
+              alt={item.label}
+              width={isLg ? 56 : 40}
+              height={isLg ? 56 : 40}
+              className={cn(
+                "h-full w-full object-contain opacity-70 transition-all duration-300 group-hover:opacity-100",
+                item.logoDark ? "dark:hidden" : ""
+              )}
+            />
+            {item.logoDark && (
+              <Image
+                src={item.logoDark}
+                alt={item.label}
+                width={isLg ? 56 : 40}
+                height={isLg ? 56 : 40}
+                className="hidden h-full w-full object-contain opacity-70 transition-all duration-300 group-hover:opacity-100 dark:block"
+              />
+            )}
+          </>
         ) : (
           <div className="text-muted-foreground/50 transition-colors duration-300 group-hover:text-foreground">
             {item.icon}
@@ -150,18 +155,62 @@ export function Integrations() {
           </p>
         </motion.div>
 
-        {/* Primary row */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          className="mt-12 grid grid-cols-3 gap-x-4 gap-y-6 md:grid-cols-6"
+        {/* Primary row — infinite marquee */}
+        <style>{`
+          @keyframes marquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+          }
+        `}</style>
+        <div
+          className="mt-12 overflow-hidden"
+          style={{
+            maskImage:
+              "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+          }}
         >
-          {PRIMARY.map((item) => (
-            <IntegrationCard key={item.name} item={item} size="lg" />
-          ))}
-        </motion.div>
+          <div
+            className="flex w-max items-center gap-20 hover:[animation-play-state:paused]"
+            style={{ animation: "marquee 35s linear infinite" }}
+          >
+            {[...PRIMARY, ...PRIMARY].map((item, i) => (
+              <div key={i} className="flex flex-col items-center gap-2.5 shrink-0">
+                {item.logo ? (
+                  <>
+                    <Image
+                      src={item.logo}
+                      alt={item.name}
+                      width={120}
+                      height={48}
+                      className={cn(
+                        "h-8 max-w-[100px] w-auto object-contain",
+                        item.logoDark ? "dark:hidden" : ""
+                      )}
+                    />
+                    {item.logoDark && (
+                      <Image
+                        src={item.logoDark}
+                        alt={item.name}
+                        width={120}
+                        height={48}
+                        className="hidden h-8 max-w-[100px] w-auto object-contain dark:block"
+                      />
+                    )}
+                  </>
+                ) : (
+                  <span className="font-heading text-xl font-bold text-foreground/70 md:text-2xl">
+                    {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
+                  </span>
+                )}
+                <span className="text-[11px] text-muted-foreground">
+                  {item.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
 
         {/* Separator */}
         <hr className="my-8 border-dashed border-border" />
@@ -173,6 +222,7 @@ export function Integrations() {
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
           className="grid grid-cols-2 gap-x-4 gap-y-4 md:grid-cols-4"
+
         >
           {SECONDARY.map((item) => (
             <IntegrationCard key={item.name} item={item} size="sm" />

@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
-import { Syne, Manrope } from "next/font/google";
+import { Space_Grotesk, Manrope } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { ScrollProgress } from "@/components/scroll-progress";
 import "./globals.css";
 
-const syne = Syne({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin", "latin-ext"],
   display: "swap",
-  variable: "--font-syne",
+  variable: "--font-space-grotesk",
 });
 
 const manrope = Manrope({
@@ -27,6 +29,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: "/favicon.svg",
+    apple: "/favicon.svg",
   },
   openGraph: {
     title: "Sitelet — Hemsidor som faktiskt funkar",
@@ -71,6 +74,87 @@ const jsonLd = {
   serviceType: ["Web Development", "Web Design", "Website Creation"],
   priceRange: "$$",
   telephone: "+46722893346",
+};
+
+const reviewSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Sitelet",
+  "review": [
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Ayob Z."
+      },
+      "reviewBody": "Innan hade vi ingen hemsida — kunder hittade oss bara via Instagram. Nu bokar folk tider direkt på mastercuts.se, och vi syns på Google när man söker barbershop i Ronneby."
+    },
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Ousama N."
+      },
+      "reviewBody": "Adam byggde hela sidan på kort tid och vi fick testa en demo innan vi sa ja. Vi har 4.9 i snitt på 34 recensioner nu och sidan visar dem direkt."
+    }
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "reviewCount": "2"
+  }
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  provider: {
+    "@type": "ProfessionalService",
+    name: "Sitelet",
+    url: "https://www.sitelet.se",
+  },
+  serviceType: "Web Development",
+  areaServed: { "@type": "Country", name: "Sweden" },
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Hemsidpaket",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        name: "Start",
+        description: "En snygg one-pager som gör jobbet.",
+        price: "399",
+        priceCurrency: "SEK",
+        priceSpecification: { "@type": "UnitPriceSpecification", price: "399", priceCurrency: "SEK", unitText: "MONTH" },
+      },
+      {
+        "@type": "Offer",
+        name: "Företag",
+        description: "Flersidigt med allt du behöver.",
+        price: "699",
+        priceCurrency: "SEK",
+        priceSpecification: { "@type": "UnitPriceSpecification", price: "699", priceCurrency: "SEK", unitText: "MONTH" },
+      },
+      {
+        "@type": "Offer",
+        name: "Produkt",
+        description: "Webbappar och plattformar.",
+        price: "1299",
+        priceCurrency: "SEK",
+        priceSpecification: { "@type": "UnitPriceSpecification", price: "1299", priceCurrency: "SEK", unitText: "MONTH" },
+      },
+    ],
+  },
 };
 
 const faqSchema = {
@@ -144,7 +228,8 @@ export default function RootLayout({
   return (
     <html
       lang="sv"
-      className={`${syne.variable} ${manrope.variable} antialiased`}
+      className={`${spaceGrotesk.variable} ${manrope.variable} antialiased`}
+      suppressHydrationWarning
     >
       <head>
         <script
@@ -155,15 +240,26 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+        />
       </head>
       <body>
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-primary-foreground"
-        >
-          Hoppa till innehåll
-        </a>
-        {children}
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <ScrollProgress />
+          <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-primary-foreground"
+          >
+            Hoppa till innehåll
+          </a>
+          {children}
+        </ThemeProvider>
         <Analytics />
         <SpeedInsights />
       </body>

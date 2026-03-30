@@ -1,8 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { STATS } from "@/lib/constants";
 import { ArrowRight, ArrowDown } from "lucide-react";
+import { Magnetic } from "@/components/magnetic";
 
 const HEADLINE_L1 = ["Hemsidan", "du", "borde"];
 const HEADLINE_L2 = ["haft", "igår."];
@@ -67,8 +69,16 @@ function WordReveal({ words, className }: { words: string[]; className?: string 
 }
 
 export function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const headlineY = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const statsY = useTransform(scrollYProgress, [0, 1], [0, -20]);
+
   return (
-    <section className="relative flex min-h-svh flex-col items-center justify-center px-6 pt-24 pb-12 overflow-hidden">
+    <section ref={sectionRef} className="relative flex min-h-svh flex-col items-center justify-center px-6 pt-24 pb-12 overflow-hidden">
       {/* Dot pattern background with radial fade */}
       <div
         aria-hidden="true"
@@ -83,7 +93,7 @@ export function Hero() {
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-[1200px] flex-1 flex-col items-center justify-center text-center">
+      <motion.div style={{ y: headlineY }} className="relative z-10 mx-auto flex w-full max-w-[1200px] flex-1 flex-col items-center justify-center text-center">
         {/* Headline with word-by-word reveal */}
         <motion.h1
           variants={containerVariants}
@@ -115,22 +125,26 @@ export function Hero() {
           animate="visible"
           className="mt-10 flex flex-col items-center gap-4 sm:flex-row"
         >
-          <a
-            href="#kontakt"
-            className="inline-flex items-center gap-2 rounded-lg bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground transition-all duration-200 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-          >
-            Få din gratis webbanalys
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </a>
-          <a
-            href="#projekt"
-            className="inline-flex items-center gap-2 rounded-lg border border-border px-8 py-4 text-sm font-medium text-foreground transition-all duration-200 hover:bg-secondary active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-          >
-            Se våra projekt
-            <ArrowDown className="h-4 w-4" aria-hidden="true" />
-          </a>
+          <Magnetic>
+            <a
+              href="#kontakt"
+              className="inline-flex items-center gap-2 rounded-lg bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground transition-all duration-200 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            >
+              Få din gratis webbanalys
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </a>
+          </Magnetic>
+          <Magnetic>
+            <a
+              href="#projekt"
+              className="inline-flex items-center gap-2 rounded-lg border border-border px-8 py-4 text-sm font-medium text-foreground transition-all duration-200 hover:bg-secondary active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            >
+              Se våra projekt
+              <ArrowDown className="h-4 w-4" aria-hidden="true" />
+            </a>
+          </Magnetic>
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Stats bar — anchored at bottom */}
       <motion.div
@@ -138,6 +152,7 @@ export function Hero() {
         custom={0.9}
         initial="hidden"
         animate="visible"
+        style={{ y: statsY }}
         className="relative z-10 mx-auto w-full max-w-[1200px] border-t border-border pt-6"
       >
         <div className="grid grid-cols-3 text-center">
