@@ -36,6 +36,13 @@ yarn-error.log*
 # vercel
 .vercel
 
+# audit screenshots (large files, dev only)
+/audit/
+/.playwright-mcp/
+
+# project screenshot originals
+/public/projects/originals/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

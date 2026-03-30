@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { margin: 0; padding: 40px; background: white; font-family: system-ui; }
+    .row { display: flex; gap: 48px; align-items: flex-start; }
+    .concept { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .label { font-size: 11px; color: #999; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .sizes { display: flex; gap: 16px; align-items: center; }
+    .mark { background: #1a1a1a; border-radius: 22%; display: flex; align-items: center; justify-content: center; }
+  </style>
+</head>
+<body>
+  <div class="row">
+
+    <!-- A: Bracket + Underline -->
+    <div class="concept">
+      <div class="sizes">
+        <div class="mark" style="width:72px;height:72px">
+          <svg width="36" height="36" viewBox="0 0 32 32" fill="none">
+            <polyline points="18,8 10,16 18,24" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <line x1="10" y1="27" x2="24" y2="27" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="mark" style="width:32px;height:32px">
+          <svg width="16" height="16" viewBox="0 0 32 32" fill="none">
+            <polyline points="18,8 10,16 18,24" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <line x1="10" y1="27" x2="24" y2="27" stroke="white" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <span class="label">A — Angle + Line</span>
+    </div>
+
+    <!-- B: Stacked Offset Blocks -->
+    <div class="concept">
+      <div class="sizes">
+        <div class="mark" style="width:72px;height:72px">
+          <svg width="36" height="36" viewBox="0 0 32 32" fill="none">
+            <rect x="6" y="6" width="12" height="12" rx="2.5" fill="white"/>
+            <rect x="14" y="14" width="12" height="12" rx="2.5" fill="white" opacity="0.4"/>
+          </svg>
+        </div>
+        <div class="mark" style="width:32px;height:32px">
+          <svg width="16" height="16" viewBox="0 0 32 32" fill="none">
+            <rect x="6" y="6" width="12" height="12" rx="2.5" fill="white"/>
+            <rect x="14" y="14" width="12" height="12" rx="2.5" fill="white" opacity="0.4"/>
+          </svg>
+        </div>
+      </div>
+      <span class="label">B — Offset Blocks</span>
+    </div>
+
+    <!-- C: Window -->
+    <div class="concept">
+      <div class="sizes">
+        <div class="mark" style="width:72px;height:72px">
+          <svg width="36" height="36" viewBox="0 0 32 32" fill="none">
+            <rect x="6" y="8" width="20" height="16" rx="3" stroke="white" stroke-width="2" fill="none"/>
+            <line x1="6" y1="13" x2="26" y2="13" stroke="white" stroke-width="2"/>
+            <circle cx="10" cy="10.5" r="1.3" fill="white"/>
+            <circle cx="14" cy="10.5" r="1.3" fill="white"/>
+          </svg>
+        </div>
+        <div class="mark" style="width:32px;height:32px">
+          <svg width="16" height="16" viewBox="0 0 32 32" fill="none">
+            <rect x="6" y="8" width="20" height="16" rx="3" stroke="white" stroke-width="2.5" fill="none"/>
+            <line x1="6" y1="13" x2="26" y2="13" stroke="white" stroke-width="2.5"/>
+            <circle cx="10" cy="10.5" r="1.5" fill="white"/>
+            <circle cx="14" cy="10.5" r="1.5" fill="white"/>
+          </svg>
+        </div>
+      </div>
+      <span class="label">C — Browser</span>
+    </div>
+
+    <!-- D: Corner L + ghost block -->
+    <div class="concept">
+      <div class="sizes">
+        <div class="mark" style="width:72px;height:72px">
+          <svg width="36" height="36" viewBox="0 0 32 32" fill="none">
+            <path d="M9 10 L9 23 L22 23" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <rect x="16" y="7" width="8" height="8" rx="2" fill="white" opacity="0.3"/>
+          </svg>
+        </div>
+        <div class="mark" style="width:32px;height:32px">
+          <svg width="16" height="16" viewBox="0 0 32 32" fill="none">
+            <path d="M9 10 L9 23 L22 23" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <rect x="16" y="7" width="8" height="8" rx="2" fill="white" opacity="0.3"/>
+          </svg>
+        </div>
+      </div>
+      <span class="label">D — Corner + Ghost</span>
+    </div>
+
+    <!-- E: Block + Underline -->
+    <div class="concept">
+      <div class="sizes">
+        <div class="mark" style="width:72px;height:72px">
+          <svg width="36" height="36" viewBox="0 0 32 32" fill="none">
+            <rect x="10" y="8" width="12" height="12" rx="3" fill="white"/>
+            <line x1="8" y1="25" x2="24" y2="25" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="mark" style="width:32px;height:32px">
+          <svg width="16" height="16" viewBox="0 0 32 32" fill="none">
+            <rect x="10" y="8" width="12" height="12" rx="3" fill="white"/>
+            <line x1="8" y1="25" x2="24" y2="25" stroke="white" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <span class="label">E — Block + Underline</span>
+    </div>
+
+  </div>
+</body>
+</html>
