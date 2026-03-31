@@ -103,15 +103,19 @@ export function Footer() {
         {/* Nav links + copyright */}
         <div className="flex flex-col items-center gap-6 md:flex-row md:justify-between">
           <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-background/50 transition-colors duration-150 hover:text-background rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-background/50 focus-visible:ring-offset-2 focus-visible:ring-offset-foreground"
-              >
-                {link.label}
-              </a>
-            ))}
+            {NAV_LINKS.map((link) => {
+              const isRoute = !link.href.includes("#");
+              const Tag = isRoute ? Link : "a";
+              return (
+                <Tag
+                  key={link.href}
+                  href={link.href}
+                  className="text-background/50 transition-colors duration-150 hover:text-background rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-background/50 focus-visible:ring-offset-2 focus-visible:ring-offset-foreground"
+                >
+                  {link.label}
+                </Tag>
+              );
+            })}
             <Link
               href="/integritetspolicy"
               className="text-background/50 transition-colors duration-150 hover:text-background rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-background/50 focus-visible:ring-offset-2 focus-visible:ring-offset-foreground"
