@@ -163,7 +163,7 @@ export function Hero() {
                 i > 0 ? "border-l border-border" : ""
               }`}
             >
-              <span className="font-heading text-lg font-semibold tabular-nums md:text-xl">
+              <span className="select-none font-heading text-lg font-semibold tabular-nums md:text-xl">
                 {stat.value}
               </span>
               <span className="text-xs text-muted-foreground md:text-sm">

@@ -9,7 +9,7 @@ export function SiteletLogo({ size = "md", className }: SiteletLogoProps) {
   return (
     <span
       className={cn(
-        "font-heading font-bold tracking-[-0.03em]",
+        "select-none font-heading font-bold tracking-[-0.03em]",
         size === "sm" && "text-base",
         size === "md" && "text-lg",
         size === "lg" && "text-xl",

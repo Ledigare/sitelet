@@ -170,7 +170,7 @@ export function CodeTerminal({
       <div
         ref={containerRef}
         className={cn(
-          "w-full overflow-hidden rounded-2xl border border-white/[0.06]",
+          "w-full select-none overflow-hidden rounded-2xl border border-white/[0.06]",
           className
         )}
         style={{

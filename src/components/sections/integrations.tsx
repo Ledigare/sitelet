@@ -163,7 +163,7 @@ export function Integrations() {
           }
         `}</style>
         <div
-          className="mt-12 overflow-hidden"
+          className="mt-12 select-none overflow-hidden"
           style={{
             maskImage:
               "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",

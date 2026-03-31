@@ -130,7 +130,7 @@ export function About() {
                 i > 0 ? "border-l border-border" : ""
               }`}
             >
-              <span className="font-heading text-3xl font-bold tabular-nums md:text-4xl">
+              <span className="select-none font-heading text-3xl font-bold tabular-nums md:text-4xl">
                 {stat.value}
               </span>
               <span className="mt-1 text-xs text-muted-foreground md:text-sm">

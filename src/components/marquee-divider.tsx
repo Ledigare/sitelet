@@ -9,7 +9,7 @@ export function MarqueeDivider({ text, className = "" }: MarqueeDividerProps) {
   const repeated = `${text} — `.repeat(10);
 
   return (
-    <div className={`overflow-hidden py-4 ${className}`} aria-hidden="true">
+    <div className={`select-none overflow-hidden py-4 ${className}`} aria-hidden="true">
       <style>{`
         @keyframes scroll-left {
           from { transform: translateX(0); }
