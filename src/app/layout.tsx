@@ -20,9 +20,9 @@ const manrope = Manrope({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.sitelet.se"),
-  title: "Sitelet — Hemsidor som faktiskt funkar",
+  title: "Sitelet — Hemsidor för företag i Blekinge",
   description:
-    "Vi bygger hemsidor för svenska företag. Snabbt, snyggt, och utan krångel. Baserade i Blekinge.",
+    "Vi bygger hemsidor för svenska företag. 50+ projekt, gratis demo innan du betalar. Från 399 kr/mån med hosting och support. Kontakta oss för en kostnadsfri webbanalys.",
   alternates: {
     canonical: "https://www.sitelet.se",
     languages: { sv: "https://www.sitelet.se" },
@@ -35,18 +35,18 @@ export const metadata: Metadata = {
     apple: { url: "/favicon-192.png", sizes: "192x192", type: "image/png" },
   },
   openGraph: {
-    title: "Sitelet — Hemsidor som faktiskt funkar",
+    title: "Sitelet — Hemsidor för företag i Blekinge",
     description:
-      "Vi bygger hemsidor för svenska företag. Snabbt, snyggt, och utan krångel. Baserade i Blekinge.",
+      "Vi bygger hemsidor för svenska företag. 50+ projekt, gratis demo innan du betalar. Från 399 kr/mån med hosting och support. Kontakta oss för en kostnadsfri webbanalys.",
     locale: "sv_SE",
     type: "website",
     siteName: "Sitelet",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sitelet — Hemsidor som faktiskt funkar",
+    title: "Sitelet — Hemsidor för företag i Blekinge",
     description:
-      "Vi bygger hemsidor för svenska företag. Snabbt, snyggt, och utan krångel. Baserade i Blekinge.",
+      "Vi bygger hemsidor för svenska företag. 50+ projekt, gratis demo innan du betalar. Från 399 kr/mån med hosting och support. Kontakta oss för en kostnadsfri webbanalys.",
   },
 };
 

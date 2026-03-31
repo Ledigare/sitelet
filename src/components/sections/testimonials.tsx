@@ -151,7 +151,7 @@ export function Testimonials() {
               {/* Quote */}
               <div className="flex flex-1 flex-col p-6 pt-4 md:p-8 md:pt-5">
                 <QuoteMark />
-                <p className="mt-3 text-base leading-relaxed text-foreground md:text-lg">
+                <p data-nosnippet className="mt-3 text-base leading-relaxed text-foreground md:text-lg">
                   {t.quote}
                 </p>
               </div>
