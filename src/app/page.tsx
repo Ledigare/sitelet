@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Hero } from "@/components/sections/hero";
@@ -38,6 +39,18 @@ export default function Home() {
         <Pricing />
         <MarqueeDivider text="Snabbt · Snyggt · Utan krångel" />
         <Integrations />
+        <div className="py-8 text-center">
+          <p className="text-sm text-muted-foreground">
+            Behöver du fler kunder?{" "}
+            <Link
+              href="/marknadsforing"
+              className="font-medium text-foreground underline-offset-4 hover:underline"
+            >
+              Vi hjälper även med digital marknadsföring — Google, Meta, TikTok och mer
+              <span className="ml-1">→</span>
+            </Link>
+          </p>
+        </div>
         <Faq />
         <About />
         <Contact />
