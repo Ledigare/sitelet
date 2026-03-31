@@ -28,8 +28,11 @@ export const metadata: Metadata = {
     languages: { sv: "https://www.sitelet.se" },
   },
   icons: {
-    icon: "/favicon.svg",
-    apple: "/favicon.svg",
+    icon: [
+      { url: "/favicon-48.png", sizes: "48x48", type: "image/png" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: { url: "/favicon-192.png", sizes: "192x192", type: "image/png" },
   },
   openGraph: {
     title: "Sitelet — Hemsidor som faktiskt funkar",
