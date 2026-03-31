@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { track } from "@vercel/analytics";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { NAV_LINKS } from "@/lib/constants";
@@ -121,8 +122,8 @@ export function Header() {
         className={cn(
           "mx-auto flex items-center justify-between transition-all duration-500 ease-out",
           scrolled
-            ? "max-w-3xl rounded-2xl border border-border bg-background/80 px-5 py-2.5 shadow-sm backdrop-blur-xl"
-            : "max-w-[1200px] bg-transparent px-2 py-3"
+            ? "max-w-4xl rounded-2xl border border-border bg-background/80 px-5 py-2.5 shadow-sm backdrop-blur-xl"
+            : "max-w-[1200px] rounded-2xl border border-transparent bg-transparent px-2 py-3"
         )}
       >
         {/* Logo */}
@@ -161,7 +162,7 @@ export function Header() {
         <div className="hidden items-center gap-3 md:flex">
           {/* Theme toggle */}
           <button
-            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+            onClick={() => { track("theme_toggled", { to: resolvedTheme === "dark" ? "light" : "dark" }); setTheme(resolvedTheme === "dark" ? "light" : "dark"); }}
             className="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-colors duration-200 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             aria-label={mounted && resolvedTheme === "dark" ? "Byt till ljust läge" : "Byt till mörkt läge"}
           >
@@ -175,6 +176,7 @@ export function Header() {
           {/* Desktop CTA */}
           <a
             href="/#kontakt"
+            onClick={() => track("cta_clicked", { location: "header", label: "webbanalys" })}
             className={cn(
               "inline-flex items-center rounded-lg bg-primary font-medium text-primary-foreground transition-all duration-200 hover:shadow-md hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
               scrolled ? "px-3.5 py-1.5 text-xs" : "px-4 py-2 text-sm"

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import { track } from "@vercel/analytics";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { STATS } from "@/lib/constants";
 import { ArrowRight, ArrowDown } from "lucide-react";
@@ -128,6 +129,7 @@ export function Hero() {
           <Magnetic>
             <a
               href="#kontakt"
+              onClick={() => track("cta_clicked", { location: "hero", label: "webbanalys" })}
               className="inline-flex items-center gap-2 rounded-lg bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground transition-all duration-200 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
               Få din gratis webbanalys
@@ -137,6 +139,7 @@ export function Hero() {
           <Magnetic>
             <a
               href="#projekt"
+              onClick={() => track("cta_clicked", { location: "hero", label: "projekt" })}
               className="inline-flex items-center gap-2 rounded-lg border border-border px-8 py-4 text-sm font-medium text-foreground transition-all duration-200 hover:bg-secondary active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
               Se våra projekt

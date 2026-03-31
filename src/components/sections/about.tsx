@@ -17,7 +17,7 @@ const ABOUT_STATS = [
 
 export function About() {
   return (
-    <section id="om" className="px-6 py-20 md:py-28">
+    <section id="om" className="bg-background-secondary px-6 py-20 md:py-28">
       <div className="mx-auto max-w-[1200px]">
         <div className="grid gap-10 md:grid-cols-2 md:gap-12 lg:gap-16">
           {/* Left — heading + bio + name */}

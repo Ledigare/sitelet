@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { track } from "@vercel/analytics";
 import { motion, AnimatePresence } from "framer-motion";
 import { PRICING_TIERS } from "@/lib/constants";
 import { Check, ArrowRight, Clock } from "lucide-react";
@@ -49,7 +50,7 @@ export function Pricing() {
           {/* Toggle — pill with sliding indicator */}
           <div className="mt-8 inline-flex rounded-full border border-border bg-secondary/50 p-1" role="radiogroup" aria-label="Faktureringsperiod">
             <button
-              onClick={() => setYearly(false)}
+              onClick={() => { setYearly(false); track("pricing_toggle", { period: "monthly" }); }}
               role="radio"
               aria-checked={!yearly}
               className="relative rounded-full px-5 py-2 text-sm font-medium transition-colors"
@@ -66,7 +67,7 @@ export function Pricing() {
               </span>
             </button>
             <button
-              onClick={() => setYearly(true)}
+              onClick={() => { setYearly(true); track("pricing_toggle", { period: "yearly" }); }}
               role="radio"
               aria-checked={yearly}
               className="relative rounded-full px-5 py-2 text-sm font-medium transition-colors"
@@ -175,6 +176,7 @@ export function Pricing() {
                 {/* CTA */}
                 <a
                   href="#kontakt"
+                  onClick={() => track("cta_clicked", { location: "pricing", label: tier.name })}
                   className={cn(
                     "mt-6 inline-flex w-full items-center justify-center rounded-lg py-3 text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
                     dark

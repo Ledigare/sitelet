@@ -42,7 +42,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { name, company, contact, message, website, url_confirm } = body;
+    const { name, company, contact, message, service, website, url_confirm } = body;
 
     // Honeypot: bots fill hidden fields, real users leave it empty
     if (url_confirm) {
@@ -98,18 +98,21 @@ export async function POST(request: Request) {
     const safeContact = escapeHtml(contact);
     const safeMessage = escapeHtml(message);
     const safeWebsite = website ? escapeHtml(website) : "";
+    const safeService = service ? escapeHtml(service) : "hemsida";
+    const serviceLabel = safeService === "marknadsforing" ? "Marknadsföring" : safeService === "bada" ? "Hemsida + Marknadsföring" : "Hemsida";
 
     await resend.emails.send({
       from: "Sitelet <kontakt@sitelet.se>",
       to: "adam@sitelet.se",
       replyTo: contact,
-      subject: `Ny förfrågan från ${safeName} — ${safeCompany}`,
+      subject: `Ny förfrågan (${serviceLabel}) från ${safeName} — ${safeCompany}`,
       html: `
         <h2>Ny förfrågan via sitelet.se</h2>
         <table style="border-collapse:collapse;font-family:sans-serif;font-size:14px;">
           <tr><td style="padding:8px 16px 8px 0;color:#666;">Namn</td><td style="padding:8px 0;"><strong>${safeName}</strong></td></tr>
           <tr><td style="padding:8px 16px 8px 0;color:#666;">Företag</td><td style="padding:8px 0;"><strong>${safeCompany}</strong></td></tr>
           <tr><td style="padding:8px 16px 8px 0;color:#666;">Kontakt</td><td style="padding:8px 0;"><a href="mailto:${safeContact}">${safeContact}</a></td></tr>
+          <tr><td style="padding:8px 16px 8px 0;color:#666;">Tjänst</td><td style="padding:8px 0;"><strong>${serviceLabel}</strong></td></tr>
           ${safeWebsite ? `<tr><td style="padding:8px 16px 8px 0;color:#666;">Hemsida</td><td style="padding:8px 0;"><a href="${safeWebsite}">${safeWebsite}</a></td></tr>` : ""}
         </table>
         <hr style="border:none;border-top:1px solid #eee;margin:16px 0;" />

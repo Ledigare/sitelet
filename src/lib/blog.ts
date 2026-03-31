@@ -96,6 +96,39 @@ export const BLOG_POSTS: BlogPost[] = [
       { question: "Behöver jag båda?", answer: "Ja, idealt. Hemsidan är din grund — den du äger och kontrollerar. Facebook är en kanal för att nå folk, men inte din enda närvaro." },
     ],
   },
+  {
+    slug: "facebook-annonser-smaforetag",
+    title: "Facebook-annonser för småföretag — en guide",
+    description: "Lär dig hur Facebook-annonser (Meta Ads) fungerar för svenska småföretag. Budget, målgrupper, annonstyper och realistiska resultat.",
+    date: "2026-03-31",
+    related: ["google-ads-eller-facebook", "vad-kostar-marknadsforing", "hemsida-vs-facebook"],
+    faq: [
+      { question: "Hur mycket kostar Facebook-annonser?", answer: "Du bestämmer själv din budget. Börja med 50 kr/dag (ca 1 500 kr/mån). Det räcker för att nå 1 000–5 000 personer per dag lokalt." },
+      { question: "Kan jag annonsera på Instagram samtidigt?", answer: "Ja, Meta Ads hanterar både Facebook och Instagram. Du skapar en annons och väljer att visa den på båda plattformarna." },
+    ],
+  },
+  {
+    slug: "google-ads-eller-facebook",
+    title: "Google Ads eller Facebook — vad passar ditt företag?",
+    description: "Ärlig jämförelse mellan Google Ads och Facebook-annonser. Lär dig vilken plattform som passar ditt småföretag bäst.",
+    date: "2026-03-31",
+    related: ["facebook-annonser-smaforetag", "vad-kostar-marknadsforing", "seo-for-smaforetag"],
+    faq: [
+      { question: "Vilken plattform ger bäst resultat?", answer: "Det beror på din bransch. Google Ads är bäst när folk aktivt söker efter din tjänst. Meta Ads är bättre för att bygga varumärkeskännedom och nå nya kunder." },
+      { question: "Måste jag välja en?", answer: "Nej, de flesta småföretag har störst nytta av att köra båda. Meta skapar medvetenhet, Google fångar upp folk som söker. Sitelets Växla upp-paket (499 kr/mån) inkluderar båda." },
+    ],
+  },
+  {
+    slug: "vad-kostar-marknadsforing",
+    title: "Så mycket kostar digital marknadsföring 2026",
+    description: "Vad kostar digital marknadsföring i Sverige 2026? Priser för byråer, frilansare och Sitelet i jämförelse.",
+    date: "2026-03-31",
+    related: ["google-ads-eller-facebook", "facebook-annonser-smaforetag", "vad-kostar-en-hemsida"],
+    faq: [
+      { question: "Vad kostar annonshantering hos Sitelet?", answer: "Från 399 kr/mån för en plattform (Meta eller Google). Växla upp-paketet med båda plattformarna kostar 499 kr/mån. Ingen bindningstid." },
+      { question: "Ingår annonsbudgeten i priset?", answer: "Nej, annonsbudgeten betalar du direkt till plattformen (Google, Meta, TikTok). Vi rekommenderar minst 1 500 kr/mån som annonsbudget." },
+    ],
+  },
 ];
 
 export function getPost(slug: string): BlogPost | undefined {

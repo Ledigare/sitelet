@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { track } from "@vercel/analytics";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { NAV_LINKS } from "@/lib/constants";
@@ -49,6 +50,7 @@ export function Footer() {
           >
             <a
               href="/#kontakt"
+              onClick={() => track("cta_clicked", { location: "footer", label: "webbanalys" })}
               className="inline-flex items-center gap-2 rounded-lg bg-background px-8 py-4 text-sm font-semibold text-foreground transition-all duration-200 hover:bg-background/90 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-background/50 focus-visible:ring-offset-2 focus-visible:ring-offset-foreground"
             >
               Få din gratis webbanalys

@@ -1,6 +1,8 @@
 "use client";
 
+import { track } from "@vercel/analytics";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import {
   Accordion,
@@ -12,7 +14,7 @@ import { FAQ_ITEMS } from "@/lib/constants";
 
 export function Faq() {
   return (
-    <section id="faq" className="bg-background-secondary px-6 py-20 md:py-28">
+    <section id="faq" className="px-6 py-20 md:py-28">
       <div className="mx-auto max-w-[1200px]">
         <div className="grid gap-10 md:grid-cols-[1fr_1.5fr] md:gap-16 lg:gap-24">
           {/* Left — heading + CTA (sticky on desktop) */}
@@ -83,6 +85,23 @@ export function Faq() {
             </p>
           </div>
         </div>
+
+        {/* Marketing cross-sell */}
+        <Link
+          href="/marknadsforing"
+          onClick={() => track("cta_clicked", { location: "faq_crosssell", label: "marknadsforing" })}
+          className="group mt-14 flex items-center justify-between rounded-2xl border border-border bg-secondary/50 px-6 py-5 transition-all duration-200 hover:bg-secondary hover:-translate-y-0.5 hover:shadow-md md:px-8"
+        >
+          <div>
+            <p className="text-sm font-medium text-foreground">
+              Behöver du fler kunder?
+            </p>
+            <p className="mt-0.5 text-xs text-muted-foreground">
+              Vi sköter dina annonser på Google och Meta — från 399 kr/mån
+            </p>
+          </div>
+          <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200 group-hover:translate-x-1 group-hover:text-foreground" />
+        </Link>
       </div>
     </section>
   );

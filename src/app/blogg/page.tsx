@@ -56,6 +56,24 @@ const POSTS = [
     description: "Ärlig jämförelse mellan hemsida och Facebook-sida för småföretag. Fördelar, nackdelar och vad du faktiskt behöver.",
     date: "2026-03-31",
   },
+  {
+    slug: "facebook-annonser-smaforetag",
+    title: "Facebook-annonser för småföretag — en guide",
+    description: "Lär dig hur Facebook-annonser (Meta Ads) fungerar för svenska småföretag. Budget, målgrupper, annonstyper och realistiska resultat.",
+    date: "2026-03-31",
+  },
+  {
+    slug: "google-ads-eller-facebook",
+    title: "Google Ads eller Facebook — vad passar ditt företag?",
+    description: "Ärlig jämförelse mellan Google Ads och Facebook-annonser. Lär dig vilken plattform som passar ditt småföretag bäst.",
+    date: "2026-03-31",
+  },
+  {
+    slug: "vad-kostar-marknadsforing",
+    title: "Så mycket kostar digital marknadsföring 2026",
+    description: "Vad kostar digital marknadsföring i Sverige 2026? Priser för byråer, frilansare och Sitelet i jämförelse.",
+    date: "2026-03-31",
+  },
 ];
 
 export default function BlogPage() {

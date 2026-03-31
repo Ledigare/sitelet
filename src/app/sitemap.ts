@@ -74,5 +74,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.6,
     },
+    {
+      url: "https://www.sitelet.se/blogg/facebook-annonser-smaforetag",
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    },
+    {
+      url: "https://www.sitelet.se/blogg/google-ads-eller-facebook",
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    },
+    {
+      url: "https://www.sitelet.se/blogg/vad-kostar-marknadsforing",
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    },
   ];
 }

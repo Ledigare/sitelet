@@ -71,7 +71,7 @@ const jsonLd = {
     "@type": "Person",
     name: "Adam Zrek",
   },
-  serviceType: ["Web Development", "Web Design", "Website Creation"],
+  serviceType: ["Web Development", "Web Design", "Website Creation", "Digital Marketing", "Social Media Advertising"],
   priceRange: "$$",
   telephone: "+46722893346",
 };

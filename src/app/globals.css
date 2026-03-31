@@ -209,6 +209,13 @@
   background-position: center center;
 }
 
+@media (max-width: 768px) {
+  .dot-grid {
+    --dot-size: 1.5px;
+    --dot-gap: 22px;
+  }
+}
+
 .dot-grid-mask {
   mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 20%, transparent 70%);
   -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 20%, transparent 70%);

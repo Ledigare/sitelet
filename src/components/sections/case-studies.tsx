@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { track } from "@vercel/analytics";
 import { motion, AnimatePresence } from "framer-motion";
 import { BrowserMockup } from "@/components/browser-mockup";
 import { CASE_STUDIES } from "@/lib/constants";
@@ -222,6 +223,7 @@ export function CaseStudies() {
                       href={project.url}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => track("project_viewed", { project: project.name })}
                       className="mt-2 inline-flex w-fit shrink-0 items-center gap-1.5 rounded-lg border border-border px-4 py-2 text-sm font-medium text-foreground transition-all duration-200 hover:bg-secondary md:mt-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                     >
                       Se live

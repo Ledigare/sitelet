@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Digital Marknadsföring — Sitelet",
+  title: "Marknadsföring — Sitelet",
   description:
-    "Google Ads, Meta-annonser, SEO och mer. Vi driver fler kunder till din hemsida. Från 2 999 kr/mån.",
+    "Vi sköter dina annonser på Meta, Google och TikTok. Från 399 kr/mån, ingen bindningstid. Fler kunder, mindre krångel.",
 };
 
 export default function MarknadsforingLayout({

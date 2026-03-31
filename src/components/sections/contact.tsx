@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { track } from "@vercel/analytics";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
@@ -11,8 +12,13 @@ import { Mail, MapPin, Phone, Check, ArrowRight } from "lucide-react";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
-export function Contact() {
+interface ContactProps {
+  defaultService?: "hemsida" | "marknadsforing" | "bada";
+}
+
+export function Contact({ defaultService = "hemsida" }: ContactProps) {
   const [status, setStatus] = useState<FormStatus>("idle");
+  const [service, setService] = useState(defaultService);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -30,6 +36,7 @@ export function Contact() {
           company: data.get("company"),
           contact: data.get("contact"),
           message: data.get("message"),
+          service: data.get("service") || "hemsida",
           website: data.get("website") || "",
           url_confirm: data.get("url_confirm") || "",
         }),
@@ -38,16 +45,19 @@ export function Contact() {
       if (res.ok) {
         setStatus("success");
         form.reset();
+        track("form_submitted", { service: data.get("service") as string || "hemsida" });
       } else {
         setStatus("error");
+        track("form_error");
       }
     } catch {
       setStatus("error");
+      track("form_error");
     }
   }
 
   return (
-    <section id="kontakt" className="bg-background-secondary px-6 py-20 md:py-28">
+    <section id="kontakt" className="px-6 py-20 md:py-28">
       <div className="mx-auto max-w-[1200px]">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.3fr] lg:gap-16">
           {/* Left — heading + info */}
@@ -174,6 +184,31 @@ export function Contact() {
                     placeholder="Så vi kan nå dig"
                     className="h-12"
                   />
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <Label>Intresserad av</Label>
+                  <input type="hidden" name="service" value={service} />
+                  <div className="flex gap-2">
+                    {[
+                      { value: "hemsida", label: "Hemsida" },
+                      { value: "marknadsforing", label: "Marknadsföring" },
+                      { value: "bada", label: "Båda" },
+                    ].map((opt) => (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        onClick={() => setService(opt.value as typeof service)}
+                        className={`rounded-lg px-4 py-2.5 text-sm font-medium transition-all duration-200 ${
+                          service === opt.value
+                            ? "bg-foreground text-background"
+                            : "bg-secondary text-muted-foreground hover:text-foreground"
+                        }`}
+                      >
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
                 <div className="flex flex-col gap-2">
