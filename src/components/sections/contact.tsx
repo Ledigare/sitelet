@@ -132,18 +132,59 @@ export function Contact({ defaultService = "hemsida" }: ContactProps) {
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 className="flex h-full min-h-[400px] flex-col items-center justify-center rounded-2xl bg-background p-12"
               >
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-foreground">
-                  <Check className="h-6 w-6 text-background" strokeWidth={2} />
+                {/* Animated checkmark circle */}
+                <div className="relative">
+                  <svg width="80" height="80" viewBox="0 0 100 100" className="rotate-[-90deg]">
+                    <motion.circle
+                      cx="50"
+                      cy="50"
+                      r="45"
+                      stroke="var(--success)"
+                      strokeWidth="3"
+                      fill="none"
+                      strokeLinecap="round"
+                      initial={{ pathLength: 0 }}
+                      animate={{ pathLength: 1 }}
+                      transition={{ duration: 0.8, ease: "easeOut" }}
+                    />
+                    <motion.circle
+                      cx="50"
+                      cy="50"
+                      r="45"
+                      fill="var(--success)"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.3, delay: 0.7 }}
+                    />
+                  </svg>
+                  <motion.div
+                    className="absolute inset-0 flex items-center justify-center"
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3, delay: 0.9, type: "spring", stiffness: 200 }}
+                  >
+                    <Check className="h-8 w-8 text-white" strokeWidth={3} />
+                  </motion.div>
                 </div>
-                <p className="mt-6 font-heading text-2xl font-semibold">
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 1.1 }}
+                  className="mt-6 font-heading text-2xl font-semibold"
+                >
                   Tack!
-                </p>
-                <p className="mt-2 text-muted-foreground">
-                  Vi hör av oss inom kort.
-                </p>
+                </motion.p>
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 1.3 }}
+                  className="mt-2 text-muted-foreground"
+                >
+                  Vi hör av oss inom 24 timmar.
+                </motion.p>
               </motion.div>
             ) : (
               <form

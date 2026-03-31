@@ -149,6 +149,11 @@ export function Pricing() {
                   <p className={cn("mt-2 text-xs", dark ? "text-background/85" : "text-muted-foreground")}>
                     {tier.setupFee} kr startavgift{!yearly && " · 12 mån"}
                   </p>
+                  {yearly && (
+                    <span className="mt-2 inline-block rounded-full bg-success px-3 py-1 text-xs font-semibold text-white">
+                      Spara {(parseInt(tier.monthlyPrice.replace(/\s/g, "")) * 12 - parseInt(tier.yearlyPrice.replace(/\s/g, ""))).toLocaleString("sv-SE")} kr/år
+                    </span>
+                  )}
                 </div>
 
                 {/* Separator */}
