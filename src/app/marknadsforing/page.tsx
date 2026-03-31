@@ -174,11 +174,11 @@ export default function MarknadsforingPage() {
                 className="mt-8"
               >
                 <a
-                  href="#kontakt-marknadsforing"
+                  href="#kontakt"
                   onClick={() => track("cta_clicked", { location: "marknadsforing_hero", label: "boka_samtal" })}
                   className="inline-flex items-center gap-2 rounded-lg bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground transition-all duration-200 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 >
-                  Boka ett samtal
+                  Kom igång
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </a>
               </motion.div>
@@ -186,10 +186,9 @@ export default function MarknadsforingPage() {
           </div>
         </section>
 
-        <div className="px-6 pb-20 md:pb-28">
-
-        {/* Services Grid */}
-        <div className="mx-auto mt-20 max-w-[1200px] md:mt-28">
+        {/* Services Grid — gray bg */}
+        <section className="bg-background-secondary px-6 py-20 md:py-28">
+        <div className="mx-auto max-w-[1200px]">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -262,9 +261,11 @@ export default function MarknadsforingPage() {
             </div>
           </motion.div>
         </div>
+        </section>
 
-        {/* Pricing */}
-        <div className="mx-auto mt-20 max-w-[1200px] md:mt-28">
+        {/* Pricing — white bg */}
+        <section className="px-6 py-20 md:py-28">
+        <div className="mx-auto max-w-[1200px]">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -344,7 +345,7 @@ export default function MarknadsforingPage() {
                   </p>
 
                   <a
-                    href="#kontakt-marknadsforing"
+                    href="#kontakt"
                     onClick={() => track("cta_clicked", { location: "marknadsforing_pricing", label: tier.name })}
                     className={cn(
                       "mt-6 inline-flex w-full items-center justify-center rounded-lg py-3 text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 hover:shadow-md hover:scale-[1.02] active:scale-[0.98]",
@@ -373,11 +374,12 @@ export default function MarknadsforingPage() {
             <p className="text-xs">Alla priser exkl. moms.</p>
           </motion.div>
         </div>
+        </section>
 
+        {/* Contact form — gray bg, reuses main site component */}
+        <div className="bg-background-secondary">
+          <Contact defaultService="marknadsforing" />
         </div>
-
-        {/* Contact form — reuses main site component with marketing pre-selected */}
-        <Contact defaultService="marknadsforing" />
       </main>
       <Footer />
     </>
