@@ -1,10 +1,10 @@
 export const NAV_LINKS = [
-  { label: "Process", href: "#process" },
-  { label: "Projekt", href: "#projekt" },
-  { label: "Priser", href: "#priser" },
-  { label: "Om", href: "#om" },
+  { label: "Process", href: "/#process" },
+  { label: "Projekt", href: "/#projekt" },
+  { label: "Priser", href: "/#priser" },
+  { label: "Om", href: "/#om" },
   { label: "Blogg", href: "/blogg" },
-  { label: "Kontakt", href: "#kontakt" },
+  { label: "Kontakt", href: "/#kontakt" },
 ] as const;
 
 export const STATS = [

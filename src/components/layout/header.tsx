@@ -52,7 +52,7 @@ export function Header() {
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            setActiveSection(`#${entry.target.id}`);
+            setActiveSection(`/#${entry.target.id}`);
           }
         }
       },
@@ -169,7 +169,7 @@ export function Header() {
 
           {/* Desktop CTA */}
           <a
-            href="#kontakt"
+            href="/#kontakt"
             className={cn(
               "inline-flex items-center rounded-lg bg-primary font-medium text-primary-foreground transition-all duration-200 hover:shadow-md hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
               scrolled ? "px-3.5 py-1.5 text-xs" : "px-4 py-2 text-sm"
