@@ -220,6 +220,13 @@
     --dot-size: 1.5px;
     --dot-gap: 22px;
   }
+  main {
+    scroll-snap-type: y proximity;
+  }
+  main > section,
+  main > div {
+    scroll-snap-align: start;
+  }
 }
 
 .dot-grid-mask {

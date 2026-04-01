@@ -4,6 +4,7 @@ import { ThemeProvider } from "next-themes";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ScrollProgress } from "@/components/scroll-progress";
+import { StickyCta } from "@/components/sticky-cta";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -262,6 +263,7 @@ export default function RootLayout({
             Hoppa till innehåll
           </a>
           {children}
+          <StickyCta />
         </ThemeProvider>
         <Analytics />
         <SpeedInsights />
