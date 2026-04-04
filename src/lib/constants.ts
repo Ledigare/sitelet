@@ -45,7 +45,7 @@ export const CASE_STUDIES = [
   {
     name: "RBV Bilvård Center",
     mobileLabel: "Bilvård",
-    url: "https://rbv-bilvard.vercel.app/",
+    url: "https://www.xn--ronnebybilvrd-zfb.se/",
     type: "Bilvård & Detailing",
     tech: ["Next.js", "Schema.org", "SEO"],
     description:

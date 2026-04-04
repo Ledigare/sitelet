@@ -35,6 +35,16 @@ const TESTIMONIALS: Testimonial[] = [
     source: "Google",
     photo: "/testimonials/osama.webp",
   },
+  {
+    quote:
+      "Vi behövde en sida där kunder kan boka bilvård och däckhotell direkt — Adam fixade allt. Sidan var klar snabbt, den funkar perfekt på mobilen, och nu slipper vi svara i telefon hela tiden. Kunderna hittar oss på Google och bokar själva.",
+    name: "Nabhan M.",
+    role: "Ägare",
+    company: "RBV Bilvård Center",
+    stars: 5,
+    source: "Google",
+    photo: "/testimonials/nabhan.jpg",
+  },
 ];
 
 const containerVariants = {

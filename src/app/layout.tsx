@@ -110,12 +110,25 @@ const reviewSchema = {
         "name": "Ousama N."
       },
       "reviewBody": "Adam byggde hela sidan på kort tid och vi fick testa en demo innan vi sa ja. Vi har 4.9 i snitt på 34 recensioner nu och sidan visar dem direkt."
+    },
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Nabhan M."
+      },
+      "reviewBody": "Vi behövde en sida där kunder kan boka bilvård och däckhotell direkt — Adam fixade allt. Sidan var klar snabbt, den funkar perfekt på mobilen, och nu slipper vi svara i telefon hela tiden."
     }
   ],
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "5",
-    "reviewCount": "2"
+    "reviewCount": "3"
   }
 };
 
